@@ -16,14 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
-from usermanage.views import HomePageView, RegView, CreateRuta
+from usermanage.views import HomePageView, RegView
 
 urlpatterns = [
 
 ]
 urlpatterns += i18n_patterns(
-    url(r'^ruta/', CreateRuta.as_view(), name="regular_reg"),
-    url(r'^reg/', RegView.as_view(), name="regular_reg"),
+    url(r'^accounts/register', RegView.as_view(), name="regular_reg"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^$', HomePageView.as_view(), name="index")

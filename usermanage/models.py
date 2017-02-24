@@ -10,10 +10,3 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20, null=True)
     mobile = models.CharField(max_length=15, null=True)
     address = models.CharField(max_length=50, null=True)
-
-class Ruta(models.Model):
-    name = models.CharField(max_length=20, null=True)
-    description = models.TextField(null=True)
-    lat = models.IntegerField(default=0)
-    lon = models.IntegerField(default=0)
-    date = models.DateField(default=now)

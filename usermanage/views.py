@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 from registration.backends.default.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import RegForm, RutasForm
+from .forms import RegForm
 
 # Create your views here.
 
@@ -22,7 +22,3 @@ class RegView(RegistrationView):
 
 class HomePageView(TemplateView):
     template_name = "index.html"
-
-class CreateRuta(CreateView):
-    form_class = RutasForm
-    template_name = "ruta.html"

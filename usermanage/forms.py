@@ -3,26 +3,12 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User, Group
 from django import forms
 from django.forms import ModelForm
-from .models import Profile, Ruta
+from .models import Profile
 from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
-
-class RutasForm(ModelForm):
-
-    class Meta:
-        model = Ruta
-        exclude ={}
-
-    def __init__(self, *args, **kwargs):
-        super(RutasForm,self).__init__(*args, **kwargs)
-        self.fields['date'].widget = DateWidget()
 
 class RegForm(RegistrationForm):
 
     required_css_class = 'required'
-    choices = (
-        ("B", "OPCION 1"),
-        ("A", "OPCION 2")
-    )
     document = forms.CharField(label=_("Document") ,max_length=20, required=True)
     phone = forms.CharField(max_length=20, required=True)
     mobile = forms.CharField(max_length=15, required=True)
@@ -50,7 +36,7 @@ class RegForm(RegistrationForm):
             )
 
         super(RegForm,self).__init__(*args, **kwargs)
-        self.fields['role'].choices = self.choices
+        self.fields['role'].choices = roles
 
     def save(self, commit=True):
         user = super(RegForm, self).save(commit=False)
