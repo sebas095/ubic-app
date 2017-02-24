@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-from datetime import datetime, date
-from django.utils.timezone import now
 
 # Create your models here.
 class Profile(models.Model):

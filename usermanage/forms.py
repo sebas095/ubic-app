@@ -1,15 +1,13 @@
-from registration.forms import RegistrationForm, RegistrationFormTermsOfService
+from registration.forms import RegistrationForm
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User, Group
 from django import forms
-from django.forms import ModelForm
 from .models import Profile
-from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
 
 class RegForm(RegistrationForm):
 
     required_css_class = 'required'
-    document = forms.CharField(label=_("Document") ,max_length=20, required=True)
+    document = forms.CharField(label=_("Document"), max_length=20, required=True)
     phone = forms.CharField(max_length=20, required=True)
     mobile = forms.CharField(max_length=15, required=True)
     address = forms.CharField(max_length=50, required=True)
@@ -18,7 +16,7 @@ class RegForm(RegistrationForm):
 
     class Meta:
         model = User
-        fields = ("username", "role", "first_name", "last_name", "document", "phone", "mobile", "address")
+        fields = ("username", "role", "first_name", "last_name", "document", "phone", "mobile", "address", "email")
 
     def __init__(self, *args, **kwargs):
         role = kwargs.pop("role")

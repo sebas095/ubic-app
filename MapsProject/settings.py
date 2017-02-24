@@ -133,7 +133,8 @@ USE_TZ = True
 
 # ------ Accounts settings -------
 ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_AUTO_LOGIN = False
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
