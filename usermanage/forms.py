@@ -25,12 +25,12 @@ class RegForm(RegistrationForm):
         if role == "superadmin":
             roles = (
                 ("superadmin", _("Super Admin")),
-                ("admin", _("Administrator"))
+                ("admin", _("Administrator")),
             )
 
         elif role == "admin":
             roles = (
-                ("visitador", "visitador")
+                ("visitador", _("Visitor")),
             )
 
         super(RegForm,self).__init__(*args, **kwargs)

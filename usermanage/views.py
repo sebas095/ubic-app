@@ -31,7 +31,7 @@ class UsersListView(ListView):
             return User.objects.all()
 
         elif self.request.user.groups.all()[0].name == "admin":
-            return User.objects.filter(groups__name = "visitador")
+            return User.objects.filter(profile__register_by__username = self.request.user.username)
 
         else:
             return User.objects.none()

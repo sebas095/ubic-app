@@ -8,9 +8,11 @@
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Email</th>
+            <th>Role</th>
             <th>Active</th>
             <th>Last Login</th>
             <th>Last Joined</th>
+            <th>Created by</th>
         </tr>
         {% for user in object_list %}
             <tr>
@@ -18,9 +20,11 @@
                 <td>{{ user.first_name }}</td>
                 <td>{{ user.last_name }}</td>
                 <td>{{ user.email }}</td>
+                <td>{{ user.groups.all.0 }}</td>
                 <td>{{ user.is_active }}</td>
                 <td>{{ user.last_login }}</td>
                 <td>{{ user.date_joined }}</td>
+                <td>{{ user.profile.register_by.username }}</td>
             </tr>
         {% endfor %}
     </table>
