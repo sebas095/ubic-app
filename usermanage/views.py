@@ -1,12 +1,12 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, UpdateView, ListView
 from registration.backends.default.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import RegForm
+from django.core.urlresolvers import reverse_lazy
+from .forms import RegForm, EditForm
 from .models import User
-# Create your views here.
 
+# Create your views here.
 class RegView(RegistrationView):
     form_class = RegForm
 
@@ -23,7 +23,7 @@ class RegView(RegistrationView):
 class HomePageView(TemplateView):
     template_name = "index.html"
 
-class UsersListView(ListView):
+class UserListView(ListView):
     template_name = 'usermanage/userlist.html'
 
     def get_queryset(self):
@@ -35,3 +35,9 @@ class UsersListView(ListView):
 
         else:
             return User.objects.none()
+
+class UserUpdateView(UpdateView):
+    form_class = EditForm
+    model = User
+    template_name = 'registration/registration_form.html'
+    success_url = reverse_lazy('userlist')

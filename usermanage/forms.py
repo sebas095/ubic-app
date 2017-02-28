@@ -53,3 +53,38 @@ class RegForm(RegistrationForm):
             profile.user = user
             profile.save()
         return user
+
+class EditForm(forms.ModelForm):
+    document = forms.CharField(label=_("Document"), max_length=20, required=False)
+    phone = forms.CharField(max_length=20, required=False)
+    mobile = forms.CharField(max_length=15, required=False)
+    address = forms.CharField(max_length=50, required=False)
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "document", "phone", "mobile", "address", "email")
+
+    def save(self, commit=True):
+        user = super(EditForm, self).save(commit=False)
+        profile = Profile.objects.get(user__username = user.username)
+        user.first_name = self.check(user.first_name, "first_name")
+        user.last_name = self.check(user.last_name, "last_name")
+        user.email = self.check(user.email, "email")
+        profile.document = self.check(profile.document, "document")
+        profile.phone = self.check(profile.phone, "phone")
+        profile.mobile = self.check(profile.mobile, "mobile")
+        profile.address = self.check(profile.address, "address")
+
+        if commit:
+            user.save()
+            profile.user = user
+            profile.save()
+        return user
+
+
+    def check(self, property, data):
+        data = self.cleaned_data[data]
+        if data:
+            return data
+        else:
+            return property

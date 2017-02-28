@@ -2,8 +2,9 @@
 {% load i18n %}
 {% block title %}{% trans "User list" %} {% endblock %}
 {% block content %}
-    <table width="100%">
+    <table id="t01">
         <tr>
+            <th>#</th>
             <th>Username</th>
             <th>Firstname</th>
             <th>Lastname</th>
@@ -13,9 +14,11 @@
             <th>Last Login</th>
             <th>Last Joined</th>
             <th>Created by</th>
+            <th>Actions</th>
         </tr>
         {% for user in object_list %}
             <tr>
+                <td>{{ user.id }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.first_name }}</td>
                 <td>{{ user.last_name }}</td>
@@ -25,6 +28,11 @@
                 <td>{{ user.last_login }}</td>
                 <td>{{ user.date_joined }}</td>
                 <td>{{ user.profile.register_by.username }}</td>
+                <td>
+                    <a href="{% url 'user_edit' user.id %}">Editar</a>
+                    <a href="#">Desactivar</a>
+                    <a href="#">Eliminar</a>
+                </td>
             </tr>
         {% endfor %}
     </table>
