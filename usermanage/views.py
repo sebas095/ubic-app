@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView, UpdateView, ListView
 from registration.backends.default.views import RegistrationView
 from django.contrib.auth.decorators import login_required
@@ -24,7 +25,7 @@ class HomePageView(TemplateView):
     template_name = "index.html"
 
 class UserListView(ListView):
-    template_name = 'usermanage/userlist.html'
+    template_name = "usermanage/userlist.html"
 
     def get_queryset(self):
         if self.request.user.groups.all()[0].name == "superadmin":
@@ -39,12 +40,20 @@ class UserListView(ListView):
 class UserUpdateView(UpdateView):
     form_class = EditForm
     model = User
-    template_name = 'registration/registration_form.html'
-    success_url = reverse_lazy('userlist')
+    template_name = "registration/registration_form.html"
+    success_url = reverse_lazy("userlist")
 
 class DeactivateAccountView(UpdateView):
     form_class = DeactivateUserForm
     model = User
-    template_name = 'usermanage/deactivate_account.html'
-    success_url = reverse_lazy('index')
+    template_name = "usermanage/deactivate_account.html"
+    success_url = reverse_lazy("userlist")
 
+    def post(self, request, *args, **kwargs):
+        user = self.model.objects.get(id=kwargs["pk"])
+        form = self.form_class(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+        if not form.cleaned_data["is_active"] and not self.request.user.id:
+            self.success_url = reverse_lazy("index")
+        return HttpResponseRedirect(self.get_success_url())
