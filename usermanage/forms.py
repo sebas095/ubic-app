@@ -88,3 +88,24 @@ class EditForm(forms.ModelForm):
             return data
         else:
             return property
+
+class DeactivateUserForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ("is_active", )
+
+    def __init__(self, *args, **kwargs):
+        super(DeactivateUserForm, self).__init__(*args, **kwargs)
+        self.fields['is_active'].help_text = _("Desmarque esta casilla si está seguro de que desea desactivar esta cuenta.")
+
+    def save(self, commit=True):
+        user = super(DeactivateUserForm, self).save(commit=False)
+        profile = Profile.objects.get(user__username = user.username)
+        user.is_active = self.cleaned_data["is_active"]
+
+        if commit:
+            user.save()
+            profile.user = user
+            profile.save()
+        return user

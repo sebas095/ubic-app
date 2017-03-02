@@ -1,9 +1,9 @@
-from django.views.generic import TemplateView, CreateView, UpdateView, ListView
+from django.views.generic import TemplateView, UpdateView, ListView
 from registration.backends.default.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
-from .forms import RegForm, EditForm
+from .forms import RegForm, EditForm, DeactivateUserForm
 from .models import User
 
 # Create your views here.
@@ -28,7 +28,7 @@ class UserListView(ListView):
 
     def get_queryset(self):
         if self.request.user.groups.all()[0].name == "superadmin":
-            return User.objects.all()
+            return User.objects.exclude(username=self.request.user.username)
 
         elif self.request.user.groups.all()[0].name == "admin":
             return User.objects.filter(profile__register_by__username = self.request.user.username)
@@ -41,3 +41,10 @@ class UserUpdateView(UpdateView):
     model = User
     template_name = 'registration/registration_form.html'
     success_url = reverse_lazy('userlist')
+
+class DeactivateAccountView(UpdateView):
+    form_class = DeactivateUserForm
+    model = User
+    template_name = 'usermanage/deactivate_account.html'
+    success_url = reverse_lazy('index')
+

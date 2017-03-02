@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
-from usermanage.views import HomePageView, RegView, UserListView, UserUpdateView
+from usermanage.views import HomePageView, RegView, UserListView, UserUpdateView, DeactivateAccountView
 
 urlpatterns = [
 
@@ -24,8 +24,9 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     url(r'^accounts/register/$', RegView.as_view(), name="regular_reg"),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^user/list/', UserListView.as_view(), name="userlist"),
+    url(r'^user/list/$', UserListView.as_view(), name="userlist"),
     url(r'^user/edit/(?P<pk>\d+)/$', UserUpdateView.as_view(), name='user_edit'),
+    url(r'^user/deactivate/(?P<pk>\d+)/$', DeactivateAccountView.as_view(), name='user_deactivate'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^$', HomePageView.as_view(), name="index")
 )

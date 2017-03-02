@@ -14,6 +14,7 @@
             <th>Last Login</th>
             <th>Last Joined</th>
             <th>Created by</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         {% for user in object_list %}
@@ -28,10 +29,17 @@
                 <td>{{ user.last_login }}</td>
                 <td>{{ user.date_joined }}</td>
                 <td>{{ user.profile.register_by.username }}</td>
+                {% if user.is_active %}
+                    {% trans "Activada" as status %}
+                    {% trans "Desactivar" as account %}
+                {% else %}
+                    {% trans "Desactivada" as status %}
+                    {% trans "Activar" as account %}
+                {% endif %}
+                <td>{{ status }}</td>
                 <td>
                     <a href="{% url 'user_edit' user.id %}">Editar</a>
-                    <a href="#">Desactivar</a>
-                    <a href="#">Eliminar</a>
+                    <a href="{% url 'user_deactivate' user.id %}">{{ account }} cuenta</a>
                 </td>
             </tr>
         {% endfor %}
