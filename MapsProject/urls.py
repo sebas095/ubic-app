@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from usermanage.views import HomePageView, RegView, UserListView, UserUpdateView, DeactivateAccountView
+from enterprise.views import EnterpriseCreateView
 
 urlpatterns = [
 
@@ -28,5 +29,6 @@ urlpatterns += i18n_patterns(
     url(r'^user/edit/(?P<pk>\d+)/$', UserUpdateView.as_view(), name='user_edit'),
     url(r'^user/deactivate/(?P<pk>\d+)/$', DeactivateAccountView.as_view(), name='user_deactivate'),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^$', HomePageView.as_view(), name="index")
+    url(r'^$', HomePageView.as_view(), name="index"),
+    url(r'^enterprise/create', EnterpriseCreateView.as_view(), name='enterpise_create'),
 )
