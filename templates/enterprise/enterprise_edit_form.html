@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load static %}
 {% block content %}
-<form method="post" action=".">
+<form method="post" id="form"   >
   {% csrf_token %}
   {{ form.as_p }}
-
   <input type="submit" value="{% trans 'Submit' %}" />
 </form>
 {% endblock %}

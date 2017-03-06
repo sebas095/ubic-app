@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'usermanage',
+    #'crispy_forms',
     'enterprise'
 ]
 
@@ -73,6 +74,8 @@ TEMPLATES = [
         },
     },
 ]
+
+#CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'MapsProject.wsgi.application'
 

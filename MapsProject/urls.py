@@ -17,11 +17,12 @@ from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from usermanage.views import HomePageView, RegView, UserListView, UserUpdateView, DeactivateAccountView
-from enterprise.views import EnterpriseCreateView
+from enterprise.views import EnterpriseCreateView, EnterpriseUpdateView, EnterpriseListView, EnterpriseDeactivateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += i18n_patterns(
     url(r'^accounts/register/$', RegView.as_view(), name="regular_reg"),
     url(r'^admin/', include(admin.site.urls)),
@@ -30,5 +31,9 @@ urlpatterns += i18n_patterns(
     url(r'^user/deactivate/(?P<pk>\d+)/$', DeactivateAccountView.as_view(), name='user_deactivate'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^$', HomePageView.as_view(), name="index"),
-    url(r'^enterprise/create', EnterpriseCreateView.as_view(), name='enterpise_create'),
+    url(r'^enterprise/create', EnterpriseCreateView.as_view(), name='enterprise_create'),
+    url(r'^enterprise/edit/(?P<pk>\d+)/$', EnterpriseUpdateView.as_view(), name='enterprise_edit'),
+    url(r'^enterprise/list/$', EnterpriseListView.as_view(), name='enterprise_list'),
+    url(r'^enterprise/deactivate/(?P<pk>\d+)/$', EnterpriseDeactivateView.as_view(), name='enterprise_deactivate'),
 )
+
