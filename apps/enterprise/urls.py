@@ -13,20 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf import settings
-from django.conf.urls import url, include
-from django.conf.urls.i18n import i18n_patterns
-from django.conf.urls.static import static
-from django.contrib import admin
+from django.conf.urls import url
+
+from .views import EnterpriseCreateView, EnterpriseUpdateView, EnterpriseListView, EnterpriseDeactivateView
 
 urlpatterns = [
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-
-urlpatterns += i18n_patterns(
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^enterprise/', include('apps.enterprise.urls'), name='enterprise'),
-    url(r'^', include('apps.usermanage.urls'), name='usermanage'),
-)
+    url(r'create', EnterpriseCreateView.as_view(), name='enterprise_create'),
+    url(r'edit/(?P<pk>\d+)/$', EnterpriseUpdateView.as_view(), name='enterprise_edit'),
+    url(r'list/$', EnterpriseListView.as_view(), name='enterprise_list'),
+    url(r'deactivate/(?P<pk>\d+)/$', EnterpriseDeactivateView.as_view(), name='enterprise_deactivate'),
+]
 
