@@ -22,11 +22,13 @@ from django.contrib import admin
 urlpatterns = [
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-
 urlpatterns += i18n_patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^enterprise/', include('apps.enterprise.urls'), name='enterprise'),
+    url(r'^client/', include('apps.client.urls'), name='client'),
+    url(r'^service/', include('apps.service.urls'), name='service'),
     url(r'^', include('apps.usermanage.urls'), name='usermanage'),
 )
+
 
