@@ -7,23 +7,137 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-21 13:45-0500\n"
+"POT-Creation-Date: 2017-03-08 19:38-0500\n"
 "PO-Revision-Date: 2017-02-23 10:03-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: MapsProject/settings.py:115
+#: MapsProject/settings.py:120
 msgid "Spanish"
 msgstr ""
 
-#: MapsProject/settings.py:116
+#: MapsProject/settings.py:121
 msgid "English"
+msgstr ""
+
+#: apps/client/forms.py:27
+msgid ""
+"Desmarque esta casilla si está seguro de que desea desactivar este cliente "
+"del sistema."
+msgstr ""
+
+#: apps/client/templates/client_form.html:8
+#: apps/enterprise/templates/enterprise_edit_form.html:8
+#: apps/enterprise/templates/enterprise_form.html:13
+#: apps/service/templates/service_form.html:8
+#: apps/usermanage/templates/user_registration_form.html:8
+#: templates/registration/password_change_form.html:9
+#: templates/registration/password_reset_confirm.html:12
+#: templates/registration/password_reset_form.html:9
+#: templates/registration/registration_form.html:8
+msgid "Submit"
+msgstr ""
+
+#: apps/client/templates/clientlist.html:3
+#: apps/enterprise/templates/enterpriselist.html:3
+#: apps/service/templates/servicelist.html:3
+msgid "Enterprise list"
+msgstr ""
+
+#: apps/client/templates/clientlist.html:27
+#: apps/enterprise/templates/enterpriselist.html:25
+#: apps/service/templates/servicelist.html:27
+#: apps/usermanage/templates/userlist.html:31
+msgid "Activada"
+msgstr ""
+
+#: apps/client/templates/clientlist.html:28
+#: apps/enterprise/templates/enterpriselist.html:26
+#: apps/service/templates/servicelist.html:28
+#: apps/usermanage/templates/userlist.html:32
+msgid "Desactivar"
+msgstr ""
+
+#: apps/client/templates/clientlist.html:30
+#: apps/enterprise/templates/enterpriselist.html:28
+#: apps/service/templates/servicelist.html:30
+#: apps/usermanage/templates/userlist.html:34
+msgid "Desactivada"
+msgstr ""
+
+#: apps/client/templates/clientlist.html:31
+#: apps/enterprise/templates/enterpriselist.html:29
+#: apps/service/templates/servicelist.html:31
+#: apps/usermanage/templates/userlist.html:35
+msgid "Activar"
+msgstr ""
+
+#: apps/client/templates/deactivate_client.html:8
+#: apps/enterprise/templates/deactivate_enterprise_account.html:8
+#: apps/service/templates/deactivate_service.html:8
+#: apps/usermanage/templates/deactivate_account.html:8
+msgid "desactivar"
+msgstr ""
+
+#: apps/client/templates/deactivate_client.html:10
+#: apps/enterprise/templates/deactivate_enterprise_account.html:10
+#: apps/service/templates/deactivate_service.html:10
+#: apps/usermanage/templates/deactivate_account.html:10
+msgid "activar"
+msgstr ""
+
+#: apps/client/templates/deactivate_client.html:14
+#: apps/enterprise/templates/deactivate_enterprise_account.html:14
+#: apps/service/templates/deactivate_service.html:14
+#: apps/usermanage/templates/deactivate_account.html:14
+msgid "Confirmar"
+msgstr ""
+
+#: apps/enterprise/forms.py:35
+msgid ""
+"Desmarque esta casilla si está seguro de que desea desactivar esta empresa "
+"del sistema."
+msgstr ""
+
+#: apps/enterprise/models.py:12
+msgid "Social responsibility"
+msgstr ""
+
+#: apps/service/forms.py:27
+msgid ""
+"Desmarque esta casilla si está seguro de que desea desactivar este servicio "
+"del sistema."
+msgstr ""
+
+#: apps/usermanage/forms.py:10 apps/usermanage/forms.py:58
+msgid "Document"
+msgstr "Documento"
+
+#: apps/usermanage/forms.py:27
+msgid "Super Admin"
+msgstr "Super Administrador"
+
+#: apps/usermanage/forms.py:28
+msgid "Administrator"
+msgstr "Administrador"
+
+#: apps/usermanage/forms.py:33
+msgid "Visitor"
+msgstr ""
+
+#: apps/usermanage/forms.py:100
+msgid ""
+"Desmarque esta casilla si está seguro de que desea desactivar esta cuenta."
+msgstr ""
+
+#: apps/usermanage/templates/userlist.html:3
+msgid "User list"
 msgstr ""
 
 #: env/lib/python3.5/site-packages/django/contrib/messages/apps.py:7
@@ -1123,23 +1237,31 @@ msgstr ""
 msgid "Index of %(directory)s"
 msgstr ""
 
-#: templates/base.html:13
+#: templates/base.html:17
 msgid "Home"
 msgstr ""
 
-#: templates/base.html:16
+#: templates/base.html:20
 msgid "Logged in"
 msgstr ""
 
-#: templates/base.html:17
+#: templates/base.html:21
+msgid "Edit"
+msgstr ""
+
+#: templates/base.html:22
+msgid "Deactivate account"
+msgstr ""
+
+#: templates/base.html:23
 msgid "Log out"
 msgstr ""
 
-#: templates/base.html:18
+#: templates/base.html:24
 msgid "Change password"
 msgstr ""
 
-#: templates/base.html:20 templates/registration/login.html:9
+#: templates/base.html:26 templates/registration/login.html:9
 #: templates/registration/password_reset_complete.html:8
 msgid "Log in"
 msgstr ""
@@ -1189,13 +1311,6 @@ msgstr ""
 msgid "Password changed"
 msgstr ""
 
-#: templates/registration/password_change_form.html:9
-#: templates/registration/password_reset_confirm.html:12
-#: templates/registration/password_reset_form.html:9
-#: templates/registration/registration_form.html:9
-msgid "Submit"
-msgstr ""
-
 #: templates/registration/password_reset_complete.html:6
 msgid "Password reset successfully"
 msgstr "Contraseña reestablecida exitosamente"
@@ -1221,15 +1336,3 @@ msgstr "Los registros estan actualmente deshabilitados."
 #: templates/registration/registration_complete.html:5
 msgid "You are now registered. Activation email sent."
 msgstr "Ya estás registrado. Hemos enviado el correo de verificacion."
-
-#: usermanage/forms.py:10
-msgid "Document"
-msgstr "Documento"
-
-#: usermanage/forms.py:25
-msgid "Super Admin"
-msgstr "Super Administrador"
-
-#: usermanage/forms.py:26
-msgid "Administrator"
-msgstr "Administrador"
