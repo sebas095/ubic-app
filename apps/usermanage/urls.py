@@ -7,5 +7,4 @@ urlpatterns = [
     url(r'user/list/$', UserListView.as_view(), name="userlist"),
     url(r'user/edit/(?P<pk>\d+)/$', UserUpdateView.as_view(), name='user_edit'),
     url(r'user/deactivate/(?P<pk>\d+)/$', DeactivateAccountView.as_view(), name='user_deactivate'),
-    url(r'$', HomePageView.as_view(), name="index"),
 ]
