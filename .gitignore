@@ -1,15 +1,2 @@
 env
-.idea/MapsProject.iml
-.idea/dataSources.local.xml
-.idea/dataSources.xml
-.idea/dataSources/
-.idea/inspectionProfiles/
-.idea/misc.xml
-.idea/modules.xml
-.idea/webResources.xml
-.idea/workspace.xml
-MapsProject/__pycache__/
-staticfiles/
-usermanage/__pycache__/
-usermanage/migrations/__pycache__/
->>>>>>> jonatan6
+.idea
