@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext as _
 from .models import Client
+from mongodbforms import fields
 
 class ClientForm(forms.ModelForm):
     required_css_class = 'required'
@@ -14,6 +15,8 @@ class ClientEditForm(forms.ModelForm):
     class Meta:
         model = Client
         exclude = {'is_active'}
+
+
 
 class DeactiveClientForm(forms.ModelForm):
     class Meta:

@@ -10,3 +10,15 @@ class Client(models.Model):
     address = models.CharField(max_length=50, null=True)
     email = models.EmailField()
     is_active = models.BooleanField(default=True)
+
+
+##############################################################
+## Non relational info
+#############################################################
+from mongoengine import *
+
+class Norel_client(Document):
+    id = StringField()
+    tipo = StringField()
+    data = StringField()
+    tags = StringField()

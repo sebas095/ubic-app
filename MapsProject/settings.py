@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+import mongoengine
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,8 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'apps.usermanage',
+
+    # MongoDB Support
+    'mongoengine',
+    'mongodbforms',
+    'mongogeneric',
+
+    # Crispy App
     #'crispy_forms',
+
+    # Project Apps
+    'apps.usermanage',
     'apps.enterprise',
     'apps.client',
     'apps.service',
@@ -91,6 +101,7 @@ DATABASES = {
     }
 }
 
+mongoengine.connect(db="YouTrackDB", alias="secondary")
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
