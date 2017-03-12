@@ -30,6 +30,7 @@ urlpatterns += i18n_patterns(
     url(r'^enterprise/', include('apps.enterprise.urls'), name='enterprise'),
     url(r'^client/', include('apps.client.urls'), name='client'),
     url(r'^service/', include('apps.service.urls'), name='service'),
+    url('^route/', include('apps.route.urls'), name='route'),
     url(r'^$', HomePageView.as_view(), name="index"),
 )
 

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2>Aqui va un mapa</h2>
+    <div id="google-canvas"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBav6CYAcpkgFJTDZPaBgO05Kf2Q2DG9mw&callback=initMap" async defer></script>
+    <script src="{% static 'js/route_map.js' %}"></script>
+{% endblock %}

@@ -1,3 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#google-canvas {
+  height: 100%;
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+}
+
 table {
     width:100%;
 }

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.enterprise',
     'apps.client',
     'apps.service',
+    'apps.route',
 ]
 
 MIDDLEWARE = [
