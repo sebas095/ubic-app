@@ -5,3 +5,4 @@ apps/client/__pychache__
 apps/service/__pychache__
 apps/usermanage/__pychache__
 MapsProject/__pycache__
+staticfiles

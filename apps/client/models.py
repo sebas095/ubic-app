@@ -10,15 +10,18 @@ class Client(models.Model):
     address = models.CharField(max_length=50, null=True)
     email = models.EmailField()
     is_active = models.BooleanField(default=True)
+    lat = models.FloatField(default=0)
+    lon = models.FloatField(default=0)
+    related_dir = models.CharField(max_length=150, null=True)
 
-
-##############################################################
-## Non relational info
-#############################################################
-from mongoengine import *
-
-class Norel_client(Document):
-    id = StringField()
-    tipo = StringField()
-    data = StringField()
-    tags = StringField()
+#
+# ##############################################################
+# ## Non relational info
+# #############################################################
+# from mongoengine import *
+#
+# class Norel_client(Document):
+#     id = StringField()
+#     tipo = StringField()
+#     data = StringField()
+#     tags = StringField()
