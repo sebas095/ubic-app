@@ -8,7 +8,7 @@ html, body {
   height: 100%;
 }
 
-.content {
+#content {
     height: 100%;
     width: 100%;
 }
@@ -38,4 +38,13 @@ table#t01 tr:nth-child(odd) {
 table#t01 th {
     background-color: black;
     color: white;
+}
+
+#warning {
+    text-align: center;
+    font-size: large;
+}
+
+#warning img {
+    height: 40vh;
 }

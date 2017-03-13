@@ -9,6 +9,7 @@ from .models import User
 from utils.decorators import require_service
 
 # Create your views here.
+@require_service
 class RegView(RegistrationView):
     form_class = RegForm
 
@@ -17,10 +18,11 @@ class RegView(RegistrationView):
         return super(RegView, self).dispatch(*args, **kwargs)
 
     def get_form_kwargs(self):
-        kwargs = super(RegView,self).get_form_kwargs()
+        kwargs = super(RegView, self).get_form_kwargs()
         kwargs.update({"role": self.request.user.groups.all()[0].name})
         kwargs.update({"register_by": self.request.user})
         return kwargs
+
 
 class HomePageView(TemplateView):
     template_name = "index.html"
@@ -28,6 +30,10 @@ class HomePageView(TemplateView):
 @require_service
 class UserListView(ListView):
     template_name = "userlist.html"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserListView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
         if self.request.user.groups.all()[0].name == "superadmin":
@@ -39,17 +45,27 @@ class UserListView(ListView):
         else:
             return User.objects.none()
 
+@require_service
 class UserUpdateView(UpdateView):
     form_class = EditForm
     model = User
     template_name = "user_registration_form.html"
     success_url = reverse_lazy("userlist")
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserUpdateView, self).dispatch(*args, **kwargs)
+
+@require_service
 class DeactivateAccountView(UpdateView):
     form_class = DeactivateUserForm
     model = User
     template_name = "deactivate_account.html"
     success_url = reverse_lazy("userlist")
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(DeactivateAccountView, self).dispatch(*args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         user = self.model.objects.get(id=kwargs["pk"])
