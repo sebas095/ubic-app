@@ -39,3 +39,12 @@ table#t01 th {
     background-color: black;
     color: white;
 }
+
+#warning {
+    text-align: center;
+    font-size: large;
+}
+
+#warning img {
+    height: 40vh;
+}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+    <div id="warning">
+        <img src="{% static 'img/Warning-Logo.png' %}" alt="Warning">
+        <p><strong>{% trans "Por favor, póngase en contacto con el administrador" %}</strong></p>
+    </div>
+{% endblock %}
