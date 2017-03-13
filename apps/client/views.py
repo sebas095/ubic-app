@@ -20,6 +20,7 @@ class ClientListView(ListView):
     template_name = "clientlist.html"
 
     def get_queryset(self):
+        print(self.request.user)
         if self.request.user.groups.all()[0].name == "superadmin":
             return Client.objects.all()
 

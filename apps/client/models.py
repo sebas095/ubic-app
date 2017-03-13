@@ -7,12 +7,11 @@ class Client(models.Model):
     fullname = models.CharField(max_length=100, null=True)
     document = models.CharField(max_length=20, null=True)
     phone = models.CharField(max_length=20, null=True)
-    address = models.CharField(max_length=50, null=True)
+    address = models.CharField(max_length=100, null=True)
     email = models.EmailField()
     is_active = models.BooleanField(default=True)
     lat = models.FloatField(default=0)
     lon = models.FloatField(default=0)
-    related_dir = models.CharField(max_length=150, null=True)
 
 #
 # ##############################################################

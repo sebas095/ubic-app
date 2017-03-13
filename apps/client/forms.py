@@ -12,7 +12,6 @@ class ClientForm(forms.ModelForm):
         widgets = {
             'lat': forms.HiddenInput(),
             'lon': forms.HiddenInput(),
-            'related_dir': forms.HiddenInput()
         }
 
 class DeactiveClientForm(forms.ModelForm):
