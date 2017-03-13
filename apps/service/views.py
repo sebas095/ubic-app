@@ -24,7 +24,7 @@ class ServiceListView(ListView):
             return Service.objects.all()
 
         elif self.request.user.groups.all()[0].name == "admin":
-            return Service.objects.filter(is_active=True, enterprise__admin_by=self.request.user.username)
+            return Service.objects.filter(is_active=True, enterprise__admin_by__username=self.request.user.username)
 
         else:
             return Service.objects.none()
