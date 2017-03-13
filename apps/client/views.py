@@ -24,7 +24,7 @@ class ClientListView(ListView):
             return Client.objects.all()
 
         elif self.request.user.groups.all()[0].name == "admin":
-            return Client.objects.filter(enterprise__admin_by=self.request.user.username)
+            return Client.objects.filter(enterprise__admin_by__username=self.request.user.username)
 
         else:
             return Client.objects.none()

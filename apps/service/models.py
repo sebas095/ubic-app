@@ -5,8 +5,8 @@ from apps.usermanage.models import User
 # Create your models here.
 class Service(models.Model):
     enterprise = models.OneToOneField(Enterprise)
-    start_date = models.DateTimeField()
-    finish_date = models.DateTimeField()
+    start_date = models.DateField()
+    finish_date = models.DateField()
     type = models.CharField(max_length=100)
     rate = models.FloatField()
     observations = models.TextField()

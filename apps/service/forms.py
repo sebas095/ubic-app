@@ -9,12 +9,6 @@ class ServiceForm(forms.ModelForm):
         model = Service
         exclude = {'is_active'}
 
-class ServiceEditForm(forms.ModelForm):
-
-    class Meta:
-        model = Service
-        exclude = {'is_active'}
-
 class DeactiveServiceForm(forms.ModelForm):
     class Meta:
         model = Service

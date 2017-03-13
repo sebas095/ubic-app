@@ -1,10 +1,10 @@
-appdirs==1.4.2
+appdirs==1.4.3
 Django==1.10.5
-django-crispy-forms==1.6.1
 django-datetime-widget==0.9.3
 django-location-field==2.0.2
 django-registration-redux==1.4
 mongoengine==0.11.0
+mongogeneric==0.1a0
 packaging==16.8
 pymongo==3.4.0
 pyparsing==2.1.10
