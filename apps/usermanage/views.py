@@ -4,10 +4,9 @@ from registration.backends.default.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseForbidden
 from .forms import RegForm, EditForm, DeactivateUserForm
 from .models import User
-from apps.service.models import Service
+from utils.decorators import require_service
 
 # Create your views here.
 class RegView(RegistrationView):
@@ -22,18 +21,6 @@ class RegView(RegistrationView):
         kwargs.update({"role": self.request.user.groups.all()[0].name})
         kwargs.update({"register_by": self.request.user})
         return kwargs
-
-
-def require_service(view):
-    def serviceOnly(function):
-        def wrap(request, *args, **kwargs):
-            if request.user.groups.all()[0].name == "superadmin" or Service.objects.filter(enterprise__admin_by__username=request.user.username):
-                return function(request, *args, **kwargs)
-            return HttpResponseForbidden()
-        return wrap
-
-    view.dispatch = method_decorator(serviceOnly)(view.dispatch)
-    return view
 
 class HomePageView(TemplateView):
     template_name = "index.html"
