@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 
 {% block title %} Home {% endblock %}
 
 {% block content %}
 Index page
+    {% if msg %}
+        <div id="msg">
+            <img src="{% static 'img/Warning-Logo.png' %}" alt="Warning">
+            <h1>{{ msg }}</h1>
+        </div>
+    {% endif %}
 {% endblock %}

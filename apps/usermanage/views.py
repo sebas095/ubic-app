@@ -1,10 +1,13 @@
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView, UpdateView, ListView
+from django.shortcuts import render
+from django.views.generic import UpdateView, ListView, View
 from registration.backends.default.views import RegistrationView
 from django.core.urlresolvers import reverse_lazy
 from .forms import RegForm, EditForm, DeactivateUserForm
 from .models import User
+from apps.service.models import Service
 from utils.decorators import require_service, require_login
+from datetime import date
 
 # Create your views here.
 @require_login
@@ -19,8 +22,26 @@ class RegView(RegistrationView):
         return kwargs
 
 
-class HomePageView(TemplateView):
-    template_name = "index.html"
+class HomePageView(View):
+
+    def get(self, request):
+        if request.user.is_authenticated():
+            if request.user.groups.all()[0].name == "admin":
+                if Service.objects.filter(enterprise__admin_by__username=request.user.username):
+                    service = Service.objects.filter(enterprise__admin_by__username=request.user.username)[0]
+                    expiration_time = service.finish_date - date.today()
+                    if expiration_time.days <= 7:
+                        return render(request, 'index.html', {
+                            "msg": "Su servicio esta próximo a vencerse"
+                        })
+                    else:
+                        return render(request, 'index.html')
+                else:
+                    return render(request, 'index.html')
+            else:
+                return render(request, 'index.html')
+        else:
+            return render(request, 'index.html')
 
 @require_login
 @require_service

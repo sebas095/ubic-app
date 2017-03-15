@@ -48,3 +48,11 @@ table#t01 th {
 #warning img {
     height: 40vh;
 }
+
+#msg {
+    text-align: center;
+}
+
+#msg img {
+    height: 40vh;
+}

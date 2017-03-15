@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_crontab',
     'apps.usermanage',
-    #'crispy_forms',
     'apps.enterprise',
     'apps.client',
     'apps.service',
@@ -57,6 +57,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CRONJOBS = [
+    ('0 0 * * *', 'apps.service.cron.scheduled_job')#, '>> /home/sebastian/Escritorio/logs.txt')
+]
+
+CRONTAB_COMMAND_SUFFIX = '2>&1'
 
 ROOT_URLCONF = 'MapsProject.urls'
 
