@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-from apps.service.models import Service
+from .models import Service
 from datetime import date
 
 def scheduled_job():
