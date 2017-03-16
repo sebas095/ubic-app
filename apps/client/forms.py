@@ -9,11 +9,10 @@ class ClientForm(forms.ModelForm):
         model = Client
         exclude = {'is_active'}
 
-class ClientEditForm(forms.ModelForm):
-
-    class Meta:
-        model = Client
-        exclude = {'is_active'}
+        widgets = {
+            'lat': forms.HiddenInput(),
+            'lon': forms.HiddenInput(),
+        }
 
 class DeactiveClientForm(forms.ModelForm):
     class Meta:

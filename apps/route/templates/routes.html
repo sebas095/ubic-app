@@ -3,8 +3,19 @@
 {% load staticfiles %}
 
 {% block content %}
-    <h2>Aqui va un mapa</h2>
-    <div id="google-canvas"></div>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.deep_purple-blue.min.css">
+
+    <h2>Mapa</h2>
+    <div id="map"></div>
+    <button id="btn-route" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" onclick="calcAndDisplayRoute(true)" id="add">
+        <i class="material-icons" role="presentation">navigation</i>
+        <span class="visuallyhidden">Add</span>
+    </button>
+    <ul id="content_routes"></ul>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBav6CYAcpkgFJTDZPaBgO05Kf2Q2DG9mw&callback=initMap" async defer></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
     <script src="{% static 'js/route_map.js' %}"></script>
 {% endblock %}

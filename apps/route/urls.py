@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from .views import RoutePageView
+from .views import RoutePageView, RouteCreateView
 
 urlpatterns = [
     url(r'$', RoutePageView.as_view(), name='route_index'),

@@ -1,6 +1,6 @@
 from django.views.generic import CreateView, UpdateView, ListView
 from django.core.urlresolvers import reverse_lazy
-from .forms import ClientForm, ClientEditForm, DeactiveClientForm
+from .forms import ClientForm, DeactiveClientForm
 from .models import Client
 from utils.decorators import require_service, require_login
 
@@ -16,7 +16,7 @@ class ClientCreateView(CreateView):
 @require_login
 @require_service
 class ClientUpdateView(UpdateView):
-    form_class = ClientEditForm
+    form_class = ClientForm
     model = Client
     template_name = "client_form.html"
     success_url = reverse_lazy("client_list")

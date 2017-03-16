@@ -1,3 +1,5 @@
-from django.db import models
+from mongoengine import Document, fields
 
-# Create your models here.
+class Route(Document):
+    name = fields.StringField()
+    route = fields.StringField()

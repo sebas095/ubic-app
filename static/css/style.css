@@ -4,8 +4,9 @@ html, body {
   padding: 0;
 }
 
-#google-canvas {
-  height: 100%;
+#map {
+    height: 70% !important;
+    width:  70% !important;
 }
 
 #content {
@@ -13,13 +14,41 @@ html, body {
     width: 100%;
 }
 
+#btn-route {
+    position: absolute;
+    left: 65%;
+    bottom: 72%;
+    top: 0%;
+}
+
 table {
-    width:100%;
+    width: 100%;
 }
 
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    height: 30%;
+    width: 30%;
+}
+
+#client-form {
+    height: 100%;
+    width: 100%;
+}
+
+#content {
+    height: 100%;
+    width: 100%;
 }
 
 th, td {
@@ -32,7 +61,7 @@ table#t01 tr:nth-child(even) {
 }
 
 table#t01 tr:nth-child(odd) {
-   background-color:#fff;
+    background-color: #fff;
 }
 
 table#t01 th {

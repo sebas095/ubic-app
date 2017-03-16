@@ -9,9 +9,8 @@ function initMap() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  const googleCanvas = document.getElementById('google-canvas');
+  const googleCanvas = document.getElementById('map');
   map = new google.maps.Map(googleCanvas, mapOptions);
-  console.log(googleCanvas);
 
   navigator.geolocation.getCurrentPosition((position) => {
     const {latitude, longitude} = position.coords;
