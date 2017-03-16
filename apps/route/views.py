@@ -14,6 +14,6 @@ class RoutePageView(TemplateView):
 @require_service
 class RouteCreateView(CreateView):
     form_class = RouteForm
-    model = Route
+    document = Route
     template_name = "route_form.html"
-    success_url = reverse_lazy('route_index')
+    success_url = "/"

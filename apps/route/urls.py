@@ -18,8 +18,8 @@ from django.conf.urls import url
 from .views import RoutePageView, RouteCreateView
 
 urlpatterns = [
+    url(r'create/', RouteCreateView.as_view(), name='route_create'),
     url(r'$', RoutePageView.as_view(), name='route_index'),
-    #url(r'create', RouteCreateView.as_view(), name='route_create'),
     #url(r'edit/(?P<pk>\d+)/$', RouteUpdateView.as_view(), name='route_edit'),
     #url(r'list/$', RouteListView.as_view(), name='route_list'),
     #url(r'deactivate/(?P<pk>\d+)/$', RouteDeactivateView.as_view(), name='route_deactivate'),

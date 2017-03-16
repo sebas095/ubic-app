@@ -1,5 +1,8 @@
-from mongoengine import Document, fields
+from mongoengine import *
+from django.utils.translation import ugettext as _
 
 class Route(Document):
-    name = fields.StringField()
-    route = fields.StringField()
+    name = StringField(help_text = _("Define a name for the route"))
+    route = StringField(help_text = _("Another"))
+
+    meta = {"db_alias": "secondary"}
