@@ -124,24 +124,27 @@ function calcAndDisplayRoute(display) {
     });
 }
 
+function displayClientRoute() {
+    const $id = '#' + $(this).attr('id');
+    const lat = parseFloat($($id).children('input')[0].value.replace(',', '.'));
+    const lng = parseFloat($($id).children('input')[1].value.replace(',', '.'));
+    const location = new google.maps.LatLng(lat, lng);
+
+    placeMarker(location);
+    WAYPOINTS.push([
+        lat,
+        lng
+    ]);
+
+    const div = $($id).children('div')[1];
+
+    if (!$(div).children().text()) {
+        $(div).children().text(`${count++}`);
+    }
+    $(div).css('background-color', '#66BAB8');
+}
+
 $(function() {
     $("#content_routes").sortable();
-    $('.client_route').click(function () {
-        const $id = '#' + $(this).attr('id');
-        const lat = parseFloat($($id).children('input')[0].value.replace(',', '.'));
-        const lng = parseFloat($($id).children('input')[1].value.replace(',', '.'));
-        const location = new google.maps.LatLng(lat, lng);
-        placeMarker(location);
-        WAYPOINTS.push([
-            lat,
-            lng
-        ]);
-
-        const div = $($id).children('div')[1];
-
-        if (!$(div).children().text()) {
-            $(div).children().text(`${count++}`);
-        }
-        $(div).css('background-color', '#66BAB8');
-    })
+    $('.client_route').click(displayClientRoute);
 });
