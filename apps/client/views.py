@@ -13,6 +13,12 @@ class ClientCreateView(CreateView):
     template_name = "client_form.html"
     success_url = reverse_lazy("client_list")
 
+    def get_form_kwargs(self):
+        kwargs = super(ClientCreateView, self).get_form_kwargs()
+        kwargs.update({"admin_by": self.request.user})
+        return kwargs
+
+
 @require_login
 @require_service
 class ClientUpdateView(UpdateView):
@@ -20,6 +26,12 @@ class ClientUpdateView(UpdateView):
     model = Client
     template_name = "client_form.html"
     success_url = reverse_lazy("client_list")
+
+    def get_form_kwargs(self):
+        kwargs = super(ClientUpdateView, self).get_form_kwargs()
+        kwargs.update({"admin_by": self.request.user})
+        return kwargs
+
 
 @require_login
 @require_service

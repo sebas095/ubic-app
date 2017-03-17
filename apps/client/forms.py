@@ -1,9 +1,15 @@
 from django import forms
 from django.utils.translation import ugettext as _
-from .models import Client
+from .models import Client, Enterprise
+
 
 class ClientForm(forms.ModelForm):
     required_css_class = 'required'
+    admin_by = ""
+    observations = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={'placeholder': _('Especifique informaciones adicionales para llegar al sitio')})
+    )
 
     class Meta:
         model = Client
@@ -13,6 +19,13 @@ class ClientForm(forms.ModelForm):
             'lat': forms.HiddenInput(),
             'lon': forms.HiddenInput(),
         }
+
+    def __init__(self, *args, **kwargs):
+        self.admin_by = kwargs.pop('admin_by')
+        super(ClientForm, self).__init__(*args, **kwargs)
+        self.fields['enterprise'] = forms.ModelChoiceField(
+            queryset=Enterprise.objects.filter(admin_by__username=self.admin_by.username))
+
 
 class DeactiveClientForm(forms.ModelForm):
     class Meta:

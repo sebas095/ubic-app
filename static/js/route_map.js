@@ -13,6 +13,7 @@ let WAYPOINTS = [];
 let DIRECTIONS_SERVICE = null;
 let DIRECTIONS_DISPLAY = null;
 let GEOCODER = null;
+let count = 1;
 
 function initMap() {
     GEOCODER = new google.maps.Geocoder;
@@ -34,13 +35,14 @@ function initMap() {
             zoom: 19
         });
 
-        google.maps.event.addListener(map, 'click', (ev) => {
-            placeMarker(ev.latLng);
-            WAYPOINTS.push([
-                ev.latLng.lat(),
-                ev.latLng.lng()
-            ]);
-        });
+        // google.maps.event.addListener(map, 'click', (ev) => {
+        //    console.log(ev.latLng);
+        //   placeMarker(ev.latLng);
+        //    WAYPOINTS.push([
+        //       ev.latLng.lat(),
+        //        ev.latLng.lng()
+         //   ]);
+        //});
     });
 }
 
@@ -50,48 +52,11 @@ function placeMarker(location) {
         position: location,
         map: map
     });
-    addNewPointToList(location);
 }
 
-function addNewPointToList(location) {
-    const latlng = {
-        lat: parseFloat(location.lat()),
-        lng: parseFloat(location.lng())
-    };
-
-    GEOCODER.geocode({location: latlng}, (results, status) => {
-        if (status === google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-                console.log(results);
-                $("#content_routes").html($("#content_routes").html() +
-                    `<li style="margin-bottom: 0px;min-height: 0px;height: 50px;border-bottom:1px solid #aaa;" class="mdl-grid mdl-grid--no-spacing mdl-shadow--2dp mdl-card mdl-cell mdl-cell--12-col">
-                        <header style="width:50px;min-height:50px;" class="section__play-btn mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white">
-                            <span style="font-size: 20pt;">3</span>
-                        </header>
-                        <div style="left: -80px;height: 50px;min-height: 50px;" class="mdl-card mdl-cell mdl-cell--5-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-                            <div style="margin-left: 10px;margin-top:0px;">
-                                <span style="font-weight: bold;">Roberto Gomez</span><br>
-                                <span style="font-size: 7pt">Dirección: ${results[0].formatted_address} </span>
-                            </div>
-                        </div>
-                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="btn1" data-upgraded=",MaterialButton,MaterialRipple">
-                            <i class="material-icons">more_vert</i>
-                            <span class="mdl-button__ripple-container">
-                                <span class="mdl-ripple is-animating" style="width: 92.5097px; height: 92.5097px; transform: translate(-50%, -50%) translate(24px, 19px);"></span>
-                            </span>
-                        </button>
-                    </li>`
-                );
-            } else {
-                alert('No results found');
-            }
-        } else {
-            alert('Geocoder failed due to: ' + status);
-        }
-    });
-}
 
 function coordToText(coord) {
+    console.log(coord);
     return coord[0] + ", " + coord[1];
 }
 
@@ -161,4 +126,19 @@ function calcAndDisplayRoute(display) {
 
 $(function() {
     $("#content_routes").sortable();
+    $('.client_route').click(function () {
+        const $id = '#' + $(this).attr('id');
+        const lat = parseFloat($($id).children('input')[0].value.replace(',', '.'));
+        const lng = parseFloat($($id).children('input')[1].value.replace(',', '.'));
+        const location = new google.maps.LatLng(lat, lng);
+        placeMarker(location);
+        WAYPOINTS.push([
+            lat,
+            lng
+        ]);
+
+        const div = $($id).children('div')[1];
+        $(div).children().text(`${count++}`);
+        $(div).css('background-color', '#66BAB8');
+    })
 });

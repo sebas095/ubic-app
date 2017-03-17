@@ -12,7 +12,7 @@ class Client(models.Model):
     is_active = models.BooleanField(default=True)
     lat = models.FloatField(default=0)
     lon = models.FloatField(default=0)
-
+    observations = models.TextField(null=True)
 #
 # ##############################################################
 # ## Non relational info

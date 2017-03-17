@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django_crontab',
 
+    # Date widget
+    'datetimewidget',
+
     # MongoDB Support
     'mongoengine',
     'mongodbforms',

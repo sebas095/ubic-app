@@ -5,8 +5,24 @@ html, body {
 }
 
 #map {
-    height: 70% !important;
-    width:  70% !important;
+    display: inline-block;
+    height: 60% !important;
+    width:  60% !important;
+}
+
+#clients {
+    display: inline-block;
+    position: absolute;
+    top: 15%;
+    margin-left: 15px;
+}
+
+.client_route {
+    display: block;
+    border: 1px solid transparent;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 #content {
@@ -16,7 +32,7 @@ html, body {
 
 #btn-route {
     position: absolute;
-    left: 65%;
+    left: 55%;
     bottom: 72%;
     top: 0%;
 }
@@ -49,6 +65,32 @@ html, body {
 #content {
     height: 100%;
     width: 100%;
+}
+
+.client_data {
+    display: inline-block;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.center {
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.count {
+    display: none;
+    margin-left: 5px;
+    height: 8vh;
+    display: inline-block;
 }
 
 th, td {

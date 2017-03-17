@@ -12,6 +12,7 @@
             <th>Email</th>
             <th>Admin by</th>
             <th>Status</th>
+            <th>Observations</th>
             <th>Actions</th>
         </tr>
         {% for client in object_list %}
@@ -31,6 +32,7 @@
                     {% trans "Activar" as account %}
                 {% endif %}
                 <td>{{ status }}</td>
+                <td>{{ client.observations }}</td>
                 <td>
                     <a href="{% url 'client_edit' client.id %}">Editar</a>
                     <a href="{% url 'client_deactivate' client.id %}">{{ account }} cuenta</a>

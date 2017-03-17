@@ -31,7 +31,7 @@ class EnterpriseListView(ListView):
             return Enterprise.objects.all()
 
         elif self.request.user.groups.all()[0].name == "admin":
-            return Enterprise.objects.filter(is_active=True)
+            return Enterprise.objects.filter(is_active=True, admin_by__username=self.request.user.username)
 
         else:
             return Enterprise.objects.none()

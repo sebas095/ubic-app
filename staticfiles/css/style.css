@@ -5,12 +5,34 @@ html, body {
 }
 
 #map {
-  height: 100%;
+    display: inline-block;
+    height: 60% !important;
+    width:  60% !important;
+}
+
+#clients {
+    display: inline-block;
+    position: absolute;
+    top: 15%;
+    margin-left: 15px;
+}
+
+.client_route {
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    box-shadow: 5px 5px 5px gray;
 }
 
 #content {
     height: 100%;
     width: 100%;
+}
+
+#btn-route {
+    position: absolute;
+    left: 55%;
+    bottom: 72%;
+    top: 0%;
 }
 
 table {
