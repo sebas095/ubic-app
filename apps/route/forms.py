@@ -5,10 +5,13 @@ from .models import Route
 from django.forms import HiddenInput, TextInput
 
 class RouteForm(DocumentForm):
+
+    meta_clients = MongoCharField()
     class Meta:
         document = Route
-        fields = ["name", "route"]
+        fields = ["name", "directions", "clients"]
         widgets = {
             'name': TextInput(attrs={'placeholder': _("Name for the route")}),
-            'route': HiddenInput()
+            'directions': HiddenInput(),
+            'meta_clients': HiddenInput()
         }

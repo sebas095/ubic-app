@@ -3,10 +3,12 @@ Django==1.10.5
 django-common-helpers==0.9.0
 django-crispy-forms==1.6.1
 django-cron==0.5.0
+django-crontab==0.7.1
 django-datetime-widget==0.9.3
 django-location-field==2.0.2
 django-registration-redux==1.4
-mongoengine==0.11.0
+mongodbforms==0.3.1
+mongoengine==0.10.1
 mongogeneric==0.1a0
 packaging==16.8
 pymongo==3.4.0

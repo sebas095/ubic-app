@@ -5,35 +5,26 @@ from django.http import HttpResponseRedirect
 from utils.decorators import require_service, require_login
 from apps.client.models import Client
 from .forms import RouteForm
+from .models import Route
 
 # Create your views here.
 @require_login
 @require_service
-class RoutePageView(View):
+class RoutePageView(CreateView):
+    template_name = "routes.html"
+    form_class = RouteForm
+    document = Route
+    success_url = "/"
 
-    def get(self, request):
-        form = RouteForm()
-        clients = Client.objects.filter(enterprise__admin_by__username=request.user.username)
-        return render(request, 'routes.html', {
-            "clients": clients,
-            "form": form
-        })
+    def get_context_data(self, **kwargs):
+        context = super(RoutePageView, self).get_context_data(**kwargs)
+        context["clients"] = Client.objects.filter(enterprise__admin_by__username=self.request.user.username)
+        return context
 
-    def post(self, request, *args, **kwargs):
-        form = RouteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
-
-        clients = Client.objects.filter(enterprise__admin_by__username=request.user.username)
-        return render(request, 'routes.html', {
-            "clients": clients,
-            "form": form
-        })
-# @require_login
-# @require_service
-# class RouteCreateView(CreateView):
-#    form_class = RouteForm
-#    document = Route
-#    template_name = "route_form.html"
-#    success_url = "/"
+@require_login
+@require_service
+class RouteUpdateView(UpdateView):
+    template_name = "edit_route.html"
+    form_class = RouteForm
+    document = Route
+    success_url = '/'

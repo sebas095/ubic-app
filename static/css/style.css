@@ -127,3 +127,7 @@ table#t01 th {
 #msg img {
     height: 40vh;
 }
+
+#route_form p + p {
+    display: none;
+}

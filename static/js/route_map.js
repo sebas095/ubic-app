@@ -118,7 +118,8 @@ function calcAndDisplayRoute(display) {
         if (status === 'OK') {
             if (display) displayRoute(response);
             ROUTE = response;
-            console.log(ROUTE);
+            //id_clients = [];
+            //console.log(document.querySelectorAll('.client_route')[0].id);
             document.getElementById('id_route').value = JSON.stringify(ROUTE);
             document.getElementById('route_form').submit();
         } else {
