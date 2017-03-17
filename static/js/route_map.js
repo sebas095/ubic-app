@@ -118,9 +118,19 @@ function calcAndDisplayRoute(display) {
         if (status === 'OK') {
             if (display) displayRoute(response);
             ROUTE = response;
-            //id_clients = [];
-            //console.log(document.querySelectorAll('.client_route')[0].id);
-            document.getElementById('id_route').value = JSON.stringify(ROUTE);
+            id_clients = [];
+
+            const clients = document.querySelectorAll('.client_route');
+            for (let cl = 0; cl < clients.length; cl++) {
+                const client = clients[cl];
+                if (client.getAttribute('data-client')) {
+                    const index = Number(client.getAttribute('data-client')) - 2;
+                    id_clients[index] = Number(client.id);
+                }
+            }
+
+            document.getElementById('id_meta_clients').value = JSON.stringify(id_clients);
+            document.getElementById('id_directions').value = JSON.stringify(ROUTE);
             document.getElementById('route_form').submit();
         } else {
             alert('Directions request failed due to ' + status);
@@ -144,8 +154,9 @@ function displayClientRoute() {
 
     if (!$(div).children().text()) {
         $(div).children().text(`${count++}`);
+        $($id).attr('data-client', count);
+        $(div).css('background-color', '#66BAB8');
     }
-    $(div).css('background-color', '#66BAB8');
 }
 
 $(function() {
