@@ -138,7 +138,10 @@ $(function() {
         ]);
 
         const div = $($id).children('div')[1];
-        $(div).children().text(`${count++}`);
+
+        if (!$(div).children().text()) {
+            $(div).children().text(`${count++}`);
+        }
         $(div).css('background-color', '#66BAB8');
     })
 });
