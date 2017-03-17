@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.deep_purple-blue.min.css">
 
     <h2>Mapa</h2>
+    <form method="post" action="" id="route_form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="{% trans 'Submit' %}" />
+    </form>
     <div id="map"></div>
     <div id="clients">
     {% if clients %}

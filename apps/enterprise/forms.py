@@ -11,7 +11,6 @@ class EnterpriseForm(forms.ModelForm):
         model = Enterprise
         exclude = {'is_active', 'created_at'}
 
-
         widgets = {
             'nit': forms.HiddenInput()
         }

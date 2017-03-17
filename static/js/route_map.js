@@ -118,6 +118,9 @@ function calcAndDisplayRoute(display) {
         if (status === 'OK') {
             if (display) displayRoute(response);
             ROUTE = response;
+            console.log(ROUTE);
+            document.getElementById('id_route').value = JSON.stringify(ROUTE);
+            document.getElementById('route_form').submit();
         } else {
             alert('Directions request failed due to ' + status);
         }
