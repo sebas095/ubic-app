@@ -1,5 +1,22 @@
 {% extends "base.html" %}
 {% load i18n %}
-{% block content %}
+{% load staticfiles %}
 
+{% block content %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.deep_purple-blue.min.css">
+
+    <h2>Mapa</h2>
+    <form method="post" action="" id="route_form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="{% trans 'Submit' %}" />
+    </form>
+    <h3>Editar Ruta</h3>
+    <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBav6CYAcpkgFJTDZPaBgO05Kf2Q2DG9mw&callback=initMap" async defer></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script src="{% static 'js/route_map.js' %}"></script>
 {% endblock %}

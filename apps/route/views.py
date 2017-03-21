@@ -1,7 +1,6 @@
-from django.views.generic import View, UpdateView, ListView, CreateView
+from django.views.generic import TemplateView, UpdateView, ListView, CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from utils.decorators import require_service, require_login
 from apps.client.models import Client
 from .forms import RouteForm
