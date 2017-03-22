@@ -13,6 +13,7 @@ const ROUTE = JSON.parse($('#id_directions').val());
 let WAYPOINTS = [];
 let DIRECTIONS_SERVICE = null;
 let DIRECTIONS_DISPLAY = null;
+let DISPLAY_ROUTES = [];
 let GEOCODER = null;
 let markers= [];
 let count = 1;
@@ -75,7 +76,7 @@ function createWayPoints(array) {
 function displayRoute(response, flag = false) {
     const routes = getLegsColors(response);
     routes.forEach(route => {
-        new google.maps.DirectionsRenderer({
+        const display = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             map: map,
             directions: route.route,
@@ -84,6 +85,7 @@ function displayRoute(response, flag = false) {
                 strokeColor: route.color
             }
         });
+        DISPLAY_ROUTES.push(display);
     });
 }
 
@@ -192,8 +194,8 @@ function displayClientRoute() {
 function clearRoute() {
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
+        DISPLAY_ROUTES[i].setMap(null);
     }
-    markers = [];
 }
 
 $(function() {
