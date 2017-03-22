@@ -33,7 +33,7 @@ class RegForm(RegistrationForm):
                 ("visitador", _("Visitor")),
             )
 
-        super(RegForm,self).__init__(*args, **kwargs)
+        super(RegForm, self).__init__(*args, **kwargs)
         self.fields['role'].choices = roles
 
     def save(self, commit=True):

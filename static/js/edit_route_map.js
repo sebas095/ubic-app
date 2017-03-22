@@ -1,7 +1,7 @@
 /**
  * Created by sebastian on 10/03/17.
  */
-let map, ROUTE;
+let map;
 const COLORS_ARRAY = [
     "#0000FF", "#8A2BE2", "#A52A2A", "#000000", "#DEB887",
     "#5F9EA0", "#7FFF00", "#D2691E", "#FF7F50", "#6495ED",
@@ -9,10 +9,12 @@ const COLORS_ARRAY = [
     "#A9A9A9", "#006400", "#8FBC8F", "#483D8B", "#9400D3",
     "#FFD700", "#008000", "#ADFF2F", "#87CEFA", "#00FF00"
 ];
+const ROUTE = JSON.parse($('#id_directions').val());
 let WAYPOINTS = [];
 let DIRECTIONS_SERVICE = null;
 let DIRECTIONS_DISPLAY = null;
 let GEOCODER = null;
+let markers= [];
 let count = 1;
 
 function initMap() {
@@ -35,20 +37,19 @@ function initMap() {
             zoom: 19
         });
 
-        // google.maps.event.addListener(map, 'click', (ev) => {
-        //    console.log(ev.latLng);
-        //   placeMarker(ev.latLng);
-        //    WAYPOINTS.push([
-        //       ev.latLng.lat(),
-        //        ev.latLng.lng()
-         //   ]);
-        //});
+        const locations = getLocations(ROUTE);
+        for (let i = 0; i < locations.length; i++) {
+            const {lat, lng} = locations[i];
+            const location = new google.maps.LatLng(lat, lng);
+            markers.push(placeMarker(location));
+        }
+        displayRoute(ROUTE);
     });
 }
 
 
 function placeMarker(location) {
-    const marker = new google.maps.Marker({
+    return new google.maps.Marker({
         position: location,
         map: map
     });
@@ -71,14 +72,14 @@ function createWayPoints(array) {
     return wp;
 }
 
-function displayRoute(response) {
+function displayRoute(response, flag = false) {
     const routes = getLegsColors(response);
     routes.forEach(route => {
         new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             map: map,
             directions: route.route,
-            draggable: false,
+            draggable: flag,
             polylineOptions: {
                 strokeColor: route.color
             }
@@ -107,6 +108,35 @@ function getLegsColors(route) {
     return routes;
 }
 
+function getUniqueLocations(locations) {
+    let results = {};
+    let uniqueLocations = [];
+    let index = 0;
+
+    for (let i = 0; i < locations.length; i++) {
+        const location = locations[i];
+        results[location.lat + ' - ' + location.lng] = location;
+    }
+
+    for(let location in results) {
+        uniqueLocations[index++] = results[location];
+    }
+
+    return uniqueLocations;
+}
+
+function getLocations(route) {
+    let locations = [];
+    if (route) {
+        const {legs} = route.routes[0];
+        for (let i = 0; i < legs.length; i++) {
+            locations.push(legs[i].start_location);
+            locations.push(legs[i].end_location);
+       }
+   }
+   return getUniqueLocations(locations);
+}
+
 function calcAndDisplayRoute(display) {
     DIRECTIONS_SERVICE.route({
         origin: coordToText((WAYPOINTS[0])),
@@ -117,7 +147,6 @@ function calcAndDisplayRoute(display) {
     }, (response, status) => {
         if (status === 'OK') {
             if (display) displayRoute(response);
-            ROUTE = response;
             id_clients = [];
 
             const clients = document.querySelectorAll('.client_route');
@@ -131,7 +160,7 @@ function calcAndDisplayRoute(display) {
 
             document.getElementById('id_meta_clients').value = JSON.stringify(id_clients);
             document.getElementById('id_directions').value = JSON.stringify(ROUTE);
-            document.getElementById('route_form').submit();
+            //document.getElementById('route_form').submit();
         } else {
             alert('Directions request failed due to ' + status);
         }
@@ -145,6 +174,7 @@ function displayClientRoute() {
     const location = new google.maps.LatLng(lat, lng);
 
     placeMarker(location);
+
     WAYPOINTS.push([
         lat,
         lng
@@ -159,7 +189,15 @@ function displayClientRoute() {
     }
 }
 
+function clearRoute() {
+    for (let i = 0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    markers = [];
+}
+
 $(function() {
-    $("#content_routes").sortable();
+    $('#content_routes').sortable();
     $('.client_route').click(displayClientRoute);
+    $('#clear_route').click(clearRoute);
 });
