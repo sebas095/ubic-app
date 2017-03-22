@@ -42,23 +42,25 @@ function initMap() {
         for (let i = 0; i < locations.length; i++) {
             const {lat, lng} = locations[i];
             const location = new google.maps.LatLng(lat, lng);
-            markers.push(placeMarker(location));
+            markers.push(placeMarker(location, (i + 1).toString()));
         }
-        displayRoute(ROUTE);
+
+        DISPLAY_ROUTES = displayRoute(ROUTE);
     });
 }
 
 
-function placeMarker(location) {
+function placeMarker(location, label = '') {
     return new google.maps.Marker({
         position: location,
+        label: label,
         map: map
     });
 }
 
 
 function coordToText(coord) {
-    console.log(coord);
+    //console.log(coord);
     return coord[0] + ", " + coord[1];
 }
 
@@ -75,6 +77,8 @@ function createWayPoints(array) {
 
 function displayRoute(response, flag = false) {
     const routes = getLegsColors(response);
+    let displays = [];
+
     routes.forEach(route => {
         const display = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
@@ -85,8 +89,10 @@ function displayRoute(response, flag = false) {
                 strokeColor: route.color
             }
         });
-        DISPLAY_ROUTES.push(display);
+        displays.push(display);
     });
+
+    return displays;
 }
 
 function cloneObj(obj) {
@@ -148,54 +154,65 @@ function calcAndDisplayRoute(display) {
         provideRouteAlternatives: false
     }, (response, status) => {
         if (status === 'OK') {
-            if (display) displayRoute(response);
+            response = ROUTE;
+            if (display) DISPLAY_ROUTES = displayRoute(response);
             id_clients = [];
 
             const clients = document.querySelectorAll('.client_route');
             for (let cl = 0; cl < clients.length; cl++) {
                 const client = clients[cl];
                 if (client.getAttribute('data-client')) {
-                    const index = Number(client.getAttribute('data-client')) - 2;
+                    const index = Number(client.getAttribute('data-client')) - 1;
                     id_clients[index] = Number(client.id);
                 }
             }
 
             document.getElementById('id_meta_clients').value = JSON.stringify(id_clients);
             document.getElementById('id_directions').value = JSON.stringify(ROUTE);
-            //document.getElementById('route_form').submit();
+            document.getElementById('route_form').submit();
         } else {
             alert('Directions request failed due to ' + status);
         }
     });
 }
 
-function displayClientRoute() {
+function displayClientRoute(ev) {
     const $id = '#' + $(this).attr('id');
     const lat = parseFloat($($id).children('input')[0].value.replace(',', '.'));
     const lng = parseFloat($($id).children('input')[1].value.replace(',', '.'));
     const location = new google.maps.LatLng(lat, lng);
-
-    placeMarker(location);
-
-    WAYPOINTS.push([
-        lat,
-        lng
-    ]);
-
     const div = $($id).children('div')[1];
 
     if (!$(div).children().text()) {
+        WAYPOINTS.push([
+            lat,
+            lng
+        ]);
+
+        $(div).addClass('selected');
         $(div).children().text(`${count++}`);
-        $($id).attr('data-client', count);
+        $($id).attr('data-client', count - 1);
         $(div).css('background-color', '#66BAB8');
+        markers.push(placeMarker(location, (count - 1).toString()))
     }
 }
 
 function clearRoute() {
     for (let i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
-        DISPLAY_ROUTES[i].setMap(null);
+        if (markers[i]) markers[i].setMap(null);
+        if (DISPLAY_ROUTES[i]) DISPLAY_ROUTES[i].setMap(null);
     }
+
+    markers = [];
+    DISPLAY_ROUTES = [];
+    WAYPOINTS = [];
+    count = 1;
+
+    $('.selected')
+        .css('background-color', '#fff')
+        .children('div')
+        .text('')
+        .removeClass('selected');
 }
 
 $(function() {

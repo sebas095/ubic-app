@@ -47,9 +47,10 @@ function initMap() {
 }
 
 
-function placeMarker(location) {
+function placeMarker(location, label = '') {
     const marker = new google.maps.Marker({
         position: location,
+        label: label,
         map: map
     });
 }
@@ -124,7 +125,7 @@ function calcAndDisplayRoute(display) {
             for (let cl = 0; cl < clients.length; cl++) {
                 const client = clients[cl];
                 if (client.getAttribute('data-client')) {
-                    const index = Number(client.getAttribute('data-client')) - 2;
+                    const index = Number(client.getAttribute('data-client')) - 1;
                     id_clients[index] = Number(client.id);
                 }
             }
@@ -143,18 +144,17 @@ function displayClientRoute() {
     const lat = parseFloat($($id).children('input')[0].value.replace(',', '.'));
     const lng = parseFloat($($id).children('input')[1].value.replace(',', '.'));
     const location = new google.maps.LatLng(lat, lng);
-
-    placeMarker(location);
-    WAYPOINTS.push([
-        lat,
-        lng
-    ]);
-
     const div = $($id).children('div')[1];
 
     if (!$(div).children().text()) {
+        WAYPOINTS.push([
+            lat,
+            lng
+        ]);
+
         $(div).children().text(`${count++}`);
-        $($id).attr('data-client', count);
+        placeMarker(location, (count - 1).toString());
+        $($id).attr('data-client', count - 1);
         $(div).css('background-color', '#66BAB8');
     }
 }
