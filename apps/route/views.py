@@ -61,3 +61,13 @@ class RouteDeleteView(DeleteView):
 
     def get_object(self, queryset=None):
         return Route.objects(id=self.kwargs['id'])[0]
+
+@require_login
+@require_service
+class RouteListView(ListView):
+    document = Route
+    template_name = "routelist.html"
+
+    def get_queryset(self):
+        nit = Enterprise.objects.filter(admin_by__username=self.request.user.username)[0].nit
+        return Route.objects(enterprise=nit)

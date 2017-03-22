@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Enterprise list" %} {% endblock %}
+{% block content %}
+    <table id="t01">
+        <tr>
+            <th>#</th>
+            <th>Nit Enterprise</th>
+            <th>Name</th>
+            <th>Created at</th>
+            <th>Actions</th>
+        </tr>
+        {% for route in object_list %}
+            <tr>
+                <td>{{ route.id }}</td>
+                <td>{{ route.enterprise }}</td>
+                <td>{{ route.name }}</td>
+                <td>{{ route.created_at }}</td>
+                <td>
+                    <a href="{% url 'route_edit' route.id %}">{% trans "Editar" %}</a>
+                    <a href="{% url 'route_delete' route.id %}">{% trans "Eliminar" %}</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
