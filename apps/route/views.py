@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, UpdateView, ListView, CreateView
+from django.views.generic import DeleteView, UpdateView, ListView, CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from utils.decorators import require_service, require_login
@@ -51,3 +51,13 @@ class RouteUpdateView(UpdateView):
         kwargs = super(RouteUpdateView, self).get_form_kwargs()
         kwargs.update({"enterprise": nit})
         return kwargs
+
+@require_login
+@require_service
+class RouteDeleteView(DeleteView):
+    document = Route
+    template_name = "delete_route.html"
+    success_url = "/"
+
+    def get_object(self, queryset=None):
+        return Route.objects(id=self.kwargs['id'])[0]
