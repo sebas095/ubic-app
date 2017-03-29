@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'apps.client',
     'apps.service',
     'apps.route',
+    'apps.help',
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,4 @@
-from django.core.mail import send_mail
+import django.core.mail
 from .models import Service
 from datetime import date
 
@@ -10,7 +10,7 @@ def scheduled_job():
             email = service.enterprise.admin_by.email
             fullname = service.enterprise.admin_by.first_name + ' '
             fullname += service.enterprise.admin_by.last_name
-            send_mail(
+            django.core.mail.send_mail(
                 'Vencimiento del servicio',
                 'Estimado usuario ' + fullname + \
                 ',\n\nSe le informa que su servicio esta próximo a vencerse\n\nAtt,\nLa administración',

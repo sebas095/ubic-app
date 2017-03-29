@@ -5,7 +5,6 @@ from django.utils.translation import ugettext as _
 
 from apps.usermanage.models import User
 
-
 # Create your models here.
 class Enterprise(models.Model):
     nit = models.CharField(max_length=16, unique=True)
