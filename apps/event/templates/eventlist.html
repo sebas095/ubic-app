@@ -5,37 +5,24 @@
     <table id="t01">
         <tr>
             <th>#</th>
-            <th>Fullname</th>
-            <th>Document</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Admin by</th>
-            <th>Status</th>
-            <th>Observations</th>
+            <th>Created By</th>
+            <th>Event Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th># Route</th>
             <th>Actions</th>
         </tr>
-        {% for client in object_list %}
+        {% for event in object_list %}
             <tr>
-                <td>{{ client.id }}</td>
-                <td>{{ client.fullname }}</td>
-                <td>{{ client.document }}</td>
-                <td>{{ client.phone }}</td>
-                <td>{{ client.address }}</td>
-                <td>{{ client.email }}</td>
-                <td>{{ client.enterprise.admin_by }}</td>
-                {% if client.is_active %}
-                    {% trans "Activada" as status %}
-                    {% trans "Desactivar" as account %}
-                {% else %}
-                    {% trans "Desactivada" as status %}
-                    {% trans "Activar" as account %}
-                {% endif %}
-                <td>{{ status }}</td>
-                <td>{{ client.observations }}</td>
+                <td>{{ event.id }}</td>
+                <td>{{ event.created_by }}</td>
+                <td>{{ event.event_date }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.type }}</td>
+                <td>{{ event.route_id }}</td>
                 <td>
-                    <a href="{% url 'client_edit' client.id %}">Editar</a>
-                    <a href="{% url 'client_deactivate' client.id %}">{{ account }} cuenta</a>
+                    <a href="{% url 'event_edit' event.id %}">Editar</a>
+                    <a href="{% url 'event_delete' event.id %}">Eliminar</a>
                 </td>
             </tr>
         {% endfor %}

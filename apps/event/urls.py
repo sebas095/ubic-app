@@ -15,12 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from .views import EventCreateView, EventUpdateView, EventListView
+from .views import EventCreateView, EventUpdateView, EventListView, EventDeleteView
 
 urlpatterns = [
     url(r'create', EventCreateView.as_view(), name='event_create'),
-    url(r'edit/(?P<pk>\d+)/$', EventUpdateView.as_view(), name='event_edit'),
+    url(r'edit/(?P<id>\w+)/$', EventUpdateView.as_view(), name='event_edit'),
     url(r'list/$', EventListView.as_view(), name='event_list'),
-    #url(r'deactivate/(?P<pk>\d+)/$', ClientDeactivateView.as_view(), name='event_deactivate'),
+    url(r'delete/(?P<id>\w+)/$', EventDeleteView.as_view(), name='event_delete'),
 ]
 
