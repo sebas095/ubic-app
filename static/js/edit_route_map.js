@@ -18,6 +18,8 @@ let GEOCODER = null;
 let markers= [];
 let count = 1;
 
+window.addEventListener('load', initMap, false);
+
 function initMap() {
     GEOCODER = new google.maps.Geocoder;
     DIRECTIONS_SERVICE = new google.maps.DirectionsService;
