@@ -15,10 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from .views import EventCreateView, EventUpdateView, EventListView, EventDeleteView
+from .views import EventCreateView, EventUpdateView, EventListView, EventDeleteView, \
+                LoanCreateView, LoanUpdateView, LoanListView, LoanDeleteView
 
 urlpatterns = [
-    url(r'create', EventCreateView.as_view(), name='event_create'),
+    url(r'loan/create/$', LoanCreateView.as_view(), name='loan_create'),
+    url(r'loan/edit/(?P<id>\w+)/$', LoanUpdateView.as_view(), name='loan_edit'),
+    url(r'loan/list/$', LoanListView.as_view(), name='loan_list'),
+    url(r'loan/delete/(?P<id>\w+)/$', LoanDeleteView.as_view(), name='loan_delete'),
+    url(r'create/$', EventCreateView.as_view(), name='event_create'),
     url(r'edit/(?P<id>\w+)/$', EventUpdateView.as_view(), name='event_edit'),
     url(r'list/$', EventListView.as_view(), name='event_list'),
     url(r'delete/(?P<id>\w+)/$', EventDeleteView.as_view(), name='event_delete'),

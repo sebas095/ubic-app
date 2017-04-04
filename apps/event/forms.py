@@ -1,10 +1,9 @@
 from django import forms
 from mongodbforms import *
 from django.utils.translation import ugettext as _
-from .models import Event
+from .models import Event, Loan
 from apps.route.models import Route
 from datetimewidget.widgets import DateWidget
-
 
 class EventForm(DocumentForm):
     required_css_class = 'required'
@@ -36,3 +35,22 @@ class EventForm(DocumentForm):
         if commit:
             event.save()
         return event
+
+class LoanForm(DocumentForm):
+    required_css_class = 'required'
+
+    class Meta:
+        document = Loan
+        fields = ['total_amount', 'payment_fee', 'rate', 'collection', 'event']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user")
+        super(LoanForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        loan = super(LoanForm, self).save(commit=False)
+        loan.created_by = self.user
+
+        if commit:
+            loan.save()
+        return loan
