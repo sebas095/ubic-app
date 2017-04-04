@@ -10,3 +10,6 @@ class Route(Document):
     clients = ListField(IntField())
 
     meta = {"db_alias": "secondary"}
+
+    def __str__(self):
+        return self.name

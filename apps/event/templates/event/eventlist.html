@@ -9,7 +9,7 @@
             <th>Event Date</th>
             <th>Description</th>
             <th>Type</th>
-            <th># Route</th>
+            <th>Routes</th>
             <th>Actions</th>
         </tr>
         {% for event in object_list %}
@@ -19,7 +19,13 @@
                 <td>{{ event.event_date }}</td>
                 <td>{{ event.description }}</td>
                 <td>{{ event.type }}</td>
-                <td>{{ event.route_id }}</td>
+                <td>
+                    <ul>
+                        {% for route in event.route %}
+                            <li>{{ route.name }}</li>
+                        {% endfor %}
+                    </ul>
+                 </td>
                 <td>
                     <a href="{% url 'event_edit' event.id %}">Editar</a>
                     <a href="{% url 'event_delete' event.id %}">Eliminar</a>

@@ -1,5 +1,6 @@
 from mongoengine import *
 from django.utils.translation import ugettext as _
+from apps.route.models import Route
 
 # Create your models here.
 class Event(Document):
@@ -7,7 +8,7 @@ class Event(Document):
     event_date = DateTimeField()
     description = StringField(help_text='')
     type = StringField(help_text='')
-    route_id = StringField(help_text='')
+    route = ListField(ReferenceField(Route))
 
     meta = {"db_alias": "secondary"}
 

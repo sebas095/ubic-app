@@ -19,7 +19,7 @@ class EventForm(DocumentForm):
 
     class Meta:
         document = Event
-        fields = ['event_date', 'description', 'type']
+        fields = ['event_date', 'description', 'type', 'route']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -28,9 +28,6 @@ class EventForm(DocumentForm):
     def save(self, commit=True):
         event = super(EventForm, self).save(commit=False)
         event.created_by = self.user
-        route = Route.objects()[0]
-        if route:
-            event.route_id = str(route.id)
 
         if commit:
             event.save()
