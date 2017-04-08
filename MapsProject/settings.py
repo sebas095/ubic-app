@@ -53,6 +53,10 @@ INSTALLED_APPS = [
     # Crispy App
     #'crispy_forms',
 
+    # Rest framework Apps
+    'rest_framework',
+    'rest_framework_mongoengine',
+
     # Project Apps
     'apps.usermanage',
     'apps.enterprise',

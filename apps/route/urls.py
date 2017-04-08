@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 
-from .views import RoutePageView, RouteUpdateView, RouteDeleteView, RouteListView
+from .views import RoutePageView, RouteUpdateView, RouteDeleteView, RouteListView, RouteAPI
 
 urlpatterns = [
     url(r'create/$', RoutePageView.as_view(), name='route_create'),
     url(r'edit/(?P<id>\w+)/$', RouteUpdateView.as_view(), name='route_edit'),
     url(r'delete/(?P<id>\w+)/$', RouteDeleteView.as_view(), name='route_delete'),
     url(r'list/$', RouteListView.as_view(), name='route_list'),
+    url(r'api/$', RouteAPI.as_view({'get': 'list'}), name='route_api'),
 ]
 
