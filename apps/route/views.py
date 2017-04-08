@@ -5,7 +5,7 @@ from .forms import RouteForm
 from .models import Route
 from apps.enterprise.models import Enterprise
 from apps.client.models import Client
-from rest_framework_mongoengine.viewsets import ModelViewSet
+from rest_framework_mongoengine.viewsets import GenericAPIView
 from .serializers import RouteSerializer
 from django.http import HttpResponse
 
@@ -77,9 +77,11 @@ class RouteListView(ListView):
 
 @require_login
 @require_service
-class RouteAPI(ModelViewSet):
+class RouteListAPI(GenericAPIView):
     lookup_field = 'id'
     serializer_class = RouteSerializer
 
-    def get_queryset(self):
-        return Route.objects()
+    def get(self, request):
+        nit = Enterprise.objects.filter(admin_by__username=request.user.username)[0].nit
+        route = Route.objects(enterprise=nit)
+        return HttpResponse(route.to_json(), content_type='application/json')
