@@ -82,4 +82,4 @@ class RouteAPI(ModelViewSet):
     serializer_class = RouteSerializer
 
     def get_queryset(self):
-        return Route.objects(id="58d2d942b0e9f01e8d6f24d4")
+        return Route.objects()
