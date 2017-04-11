@@ -85,3 +85,14 @@ class RouteListAPI(GenericAPIView):
         nit = Enterprise.objects.filter(admin_by__username=request.user.username)[0].nit
         route = Route.objects(enterprise=nit)
         return HttpResponse(route.to_json(), content_type='application/json')
+
+@require_login
+@require_service
+class RouteAPI(GenericAPIView):
+    lookup_field = 'id'
+    serializer_class = RouteSerializer
+
+    def get(self, request, *args, **kwargs):
+        id = kwargs.get('id')
+        route = Route.objects(id=id)
+        return HttpResponse(route.to_json(), content_type='application/json')
