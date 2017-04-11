@@ -94,5 +94,16 @@ class RouteAPI(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         id = kwargs.get('id')
-        route = Route.objects(id=id)
+        route = Route.objects(id=id)[0]
+        route.clients_data = list(map(lambda pk: Client.objects.get(id=pk), route.clients))
+        del route.clients
+        route.clients_data = list(map(lambda client: {
+            "fullname": client.fullname,
+            "document": client.document,
+            "phone": client.phone,
+            "address": client.address,
+            "email": client.email,
+            "lat": client.lat,
+            "lng": client.lon
+        }, route.clients_data))
         return HttpResponse(route.to_json(), content_type='application/json')
