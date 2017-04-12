@@ -8,7 +8,7 @@ from apps.client.models import Client
 from rest_framework_mongoengine.viewsets import GenericAPIView
 from .serializers import RouteSerializer
 from django.http import HttpResponse
-
+import json
 
 # Create your views here.
 @require_login
@@ -83,8 +83,18 @@ class RouteListAPI(GenericAPIView):
 
     def get(self, request):
         nit = Enterprise.objects.filter(admin_by__username=request.user.username)[0].nit
-        route = Route.objects(enterprise=nit)
-        return HttpResponse(route.to_json(), content_type='application/json')
+        routes = Route.objects(enterprise=nit)
+        routes = list(map(self.filter, routes))
+        return HttpResponse(json.dumps(routes), content_type='application/json')
+
+    def filter(self, item):
+        return {
+            "id": str(item.id),
+            "created_at": str(item.created_at),
+            "name": item.name,
+            "enterprise": item.enterprise
+        }
+
 
 @require_login
 @require_service
