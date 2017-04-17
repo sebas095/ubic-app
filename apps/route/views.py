@@ -6,6 +6,8 @@ from .models import Route
 from apps.enterprise.models import Enterprise
 from apps.client.models import Client
 from rest_framework_mongoengine.viewsets import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_jwt.settings import api_settings
 from .serializers import RouteSerializer
 from django.http import HttpResponse
 import json
@@ -80,9 +82,12 @@ class RouteListView(ListView):
 class RouteListAPI(GenericAPIView):
     lookup_field = 'id'
     serializer_class = RouteSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        nit = Enterprise.objects.filter(admin_by__username= 'sebas.duque')[0].nit  # request.user.username)[0].nit
+        token = request.META['HTTP_AUTHORIZATION'][4:]
+        username = api_settings.JWT_DECODE_HANDLER(token)['username']
+        nit = Enterprise.objects.filter(admin_by__username= username)[0].nit
         routes = Route.objects(enterprise=nit)
         routes = list(map(self.filter, routes))
         return HttpResponse(json.dumps(routes), content_type='application/json')
@@ -101,6 +106,7 @@ class RouteListAPI(GenericAPIView):
 class RouteAPI(GenericAPIView):
     lookup_field = 'id'
     serializer_class = RouteSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         id = kwargs.get('id')
