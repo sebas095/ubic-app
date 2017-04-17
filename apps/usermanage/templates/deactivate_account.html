@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {% if object.is_active %}
+        {% trans 'desactivar' as active %}
+    {% else %}
+        {% trans 'activar' as active %}
+    {% endif %}
+    <h3>¿Desea {{ active }} la cuenta de {{ object.first_name }} {{ object.last_name }}?</h3>
+    {{ form.as_p}}
+    <input type="submit" value="{% trans 'Confirmar' %}" />
+</form>
+{% endblock %}

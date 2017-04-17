@@ -13,18 +13,27 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
 from django.contrib import admin
-from usermanage.views import HomePageView, RegView
+from apps.usermanage.views import HomePageView
 
 urlpatterns = [
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-]
 urlpatterns += i18n_patterns(
-    url(r'^accounts/register', RegView.as_view(), name="regular_reg"),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', include('apps.usermanage.urls'), name='usermanage'),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^$', HomePageView.as_view(), name="index")
-
+    url(r'^enterprise/', include('apps.enterprise.urls'), name='enterprise'),
+    url(r'^client/', include('apps.client.urls'), name='client'),
+    url(r'^service/', include('apps.service.urls'), name='service'),
+    url('^route/', include('apps.route.urls'), name='route'),
+    url('^help/', include('apps.help.urls'), name='help'),
+    url('^event/', include('apps.event.urls'), name='event'),
+    url(r'^$', HomePageView.as_view(), name="index"),
 )
+
+

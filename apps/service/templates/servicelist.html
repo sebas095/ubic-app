@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Enterprise list" %} {% endblock %}
+{% block content %}
+    <table id="t01">
+        <tr>
+            <th>#</th>
+            <th>Enterprise</th>
+            <th>Admin by</th>
+            <th>Start Date</th>
+            <th>Finish Date</th>
+            <th>Type</th>
+            <th>Rate</th>
+            <th>Observations</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for service in object_list %}
+            <tr>
+                <td>{{ service.id }}</td>
+                <td>{{ service.enterprise }}</td>
+                <td>{{ service.enterprise.admin_by }}</td>
+                <td>{{ service.start_date }}</td>
+                <td>{{ service.finish_date }}</td>
+                <td>{{ service.type }}</td>
+                <td>{{ service.rate }}</td>
+                <td>{{ service.observations }}</td>
+                {% if service.is_active %}
+                    {% trans "Activada" as status %}
+                    {% trans "Desactivar" as account %}
+                {% else %}
+                    {% trans "Desactivada" as status %}
+                    {% trans "Activar" as account %}
+                {% endif %}
+                <td>{{ status }}</td>
+                <td>
+                    <a href="{% url 'service_edit' service.id %}">Editar</a>
+                    <a href="{% url 'service_deactivate' service.id %}">{{ account }} cuenta</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

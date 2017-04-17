@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Enterprise list" %} {% endblock %}
+{% block content %}
+    <table id="t01">
+        <tr>
+            <th>#</th>
+            <th>Created By</th>
+            <th>Event Date</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Routes</th>
+            <th>Actions</th>
+        </tr>
+        {% for event in object_list %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.created_by }}</td>
+                <td>{{ event.event_date }}</td>
+                <td>{{ event.description }}</td>
+                <td>{{ event.type }}</td>
+                <td>
+                    <ul>
+                        {% for route in event.route %}
+                            <li>{{ route.name }}</li>
+                        {% endfor %}
+                    </ul>
+                 </td>
+                <td>
+                    <a href="{% url 'event_edit' event.id %}">Editar</a>
+                    <a href="{% url 'event_delete' event.id %}">Eliminar</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block content %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.deep_purple-blue.min.css">
+
+    <h2>Mapa</h2>
+    <form method="post" action="" id="route_form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <!--<input type="submit" value="{% trans 'Submit' %}" />-->
+    </form>
+    <div id="map"></div>
+    <div id="clients">
+    {% if clients %}
+        <h3>{% trans "Clientes" %}</h3>
+        {% for client in clients %}
+            <div class="client_route" id="{{ client.id }}">
+                <div class="client_data left" style="width: 80%">
+                    <strong>{{ client.fullname }}</strong>
+                    <p>{{ client.address }}</p>
+                </div>
+                <div class="client_data right count" style="width: 17%;">
+                    <div class="center"></div>
+                </div>
+                <input name="lat" type="hidden" value="{{ client.lat }}">
+                <input name="lng" type="hidden" value="{{ client.lon }}">
+            </div>
+        {% endfor %}
+    {%  endif %}
+    </div>
+    <button id="btn-route" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored mdl-shadow--4dp mdl-color--accent" onclick="calcAndDisplayRoute(true)" id="add">
+        <i class="material-icons" role="presentation">navigation</i>
+        <span class="visuallyhidden">Add</span>
+    </button>
+    <ul id="content_routes"></ul>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBav6CYAcpkgFJTDZPaBgO05Kf2Q2DG9mw&callback=initMap" async defer></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <script src="{% static 'js/route_map.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "User list" %} {% endblock %}
+{% block content %}
+    <table id="t01">
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Last Login</th>
+            <th>Last Joined</th>
+            <th>Created by</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for user in object_list %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.groups.all.0 }}</td>
+                <td>{{ user.last_login }}</td>
+                <td>{{ user.date_joined }}</td>
+                <td>{{ user.profile.register_by.username }}</td>
+                {% if user.is_active %}
+                    {% trans "Activada" as status %}
+                    {% trans "Desactivar" as account %}
+                {% else %}
+                    {% trans "Desactivada" as status %}
+                    {% trans "Activar" as account %}
+                {% endif %}
+                <td>{{ status }}</td>
+                <td>
+                    <a href="{% url 'user_edit' user.id %}">Editar</a>
+                    <a href="{% url 'user_deactivate' user.id %}">{{ account }} cuenta</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

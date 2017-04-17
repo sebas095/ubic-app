@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
+import mongoengine
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +41,31 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'usermanage',
+    'django_crontab',
+
+    # Date widget
+    'datetimewidget',
+
+    # MongoDB Support
+    'mongoengine',
+    'mongodbforms',
+    'mongogeneric',
+
+    # Crispy App
+    #'crispy_forms',
+
+    # Rest framework Apps
+    'rest_framework',
+    'rest_framework_mongoengine',
+
+    # Project Apps
+    'apps.usermanage',
+    'apps.enterprise',
+    'apps.client',
+    'apps.service',
+    'apps.route',
+    'apps.help',
+    'apps.event',
 ]
 
 MIDDLEWARE = [
@@ -53,13 +79,33 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(days=7),
+}
+
+CRONJOBS = [
+    ('0 0 * * *', 'apps.service.cron.scheduled_job')#, '>> /home/sebastian/Escritorio/logs.txt')
+]
+
+CRONTAB_COMMAND_SUFFIX = '2>&1'
+
 ROOT_URLCONF = 'MapsProject.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,6 +118,8 @@ TEMPLATES = [
         },
     },
 ]
+
+#CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'MapsProject.wsgi.application'
 
@@ -86,6 +134,7 @@ DATABASES = {
     }
 }
 
+mongoengine.connect(db="YouTrackDB", alias="secondary")
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -133,7 +182,8 @@ USE_TZ = True
 
 # ------ Accounts settings -------
 ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
+REGISTRATION_AUTO_LOGIN = False
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -142,8 +192,9 @@ REGISTRATION_AUTO_LOGIN = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static')
 ]
+
 
 # ------- Email Settings -------
 EMAIL_USE_TLS = True

@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <form method="post" id="client-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label>Ubicacion: </label>
+        <div id="map"></div>
+        <div id="required-map" style="display: none" class="alert alert-danger alert-dismissable">
+            <a class="close" onclick="hideAlert()" aria-label="close">&times;</a>
+            <strong>Error!</strong> Debe establecer una ubicacion para el cliente antes de registrarlo.
+            <br>
+            Busque la ubicacion en el mapa y haga click alli.
+        </div>
+        <br>
+        <input type="button" value="{% trans 'Submit' %}" onclick="save()"/>
+    </form>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7NUMl0ZdbpgytjC5N3nwIps43cXbeYpU"></script>
+    <script src={% static "js/geolocation-marker.js" %}></script>
+    <script>
+        let map;
+        let marker = null;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                streetViewControl: false,
+                zoom: 16,
+                fullscreenControl: false
+            });
+            google.maps.event.addListener(map, 'click', function (event) {
+                placeMarker(event.latLng);
+            });
+            locate(map);
+
+        }
+
+        function placeMarker(location) {
+            if (marker != null) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                position: location,
+                draggable: true,
+                map: map
+            });
+        }
+
+        function locate(map) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    let initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(initialLocation);
+                });
+            }
+        }
+
+        initMap();
+
+        {% comment %}function locate(map) {
+            GeoMarker = new GeolocationMarker();
+            GeoMarker.setCircleOptions({fillColor: '#FFFFFF'});
+
+            google.maps.event.addListenerOnce(GeoMarker, 'position_changed', function () {
+                map.setCenter(this.getPosition());
+                map.fitBounds(this.getBounds());
+            });
+
+            google.maps.event.addListener(GeoMarker, 'geolocation_error', function (e) {
+                alert('There was an error obtaining your position. Message: ' + e.message);
+            });
+
+            GeoMarker.setMap(map);
+        }{% endcomment %}
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+        if (!navigator.geolocation) {
+            alert('Your browser does not support geolocation');
+        }
+
+        function performData(marker) {
+            let latlng = {lat: parseFloat(marker.getPosition().lat()), lng: parseFloat(marker.getPosition().lng())};
+            let GEOCODER = new google.maps.Geocoder;
+            let related = null;
+
+            GEOCODER.geocode({'location': latlng}, function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+{#                        console.log(results[0].formatted_address);#}
+                        related = results[0].formatted_address;
+                    } else {
+                        console.log('No results found');
+                    }
+                } else {
+                    console.log('Geocoder failed due to: ' + status);
+                }
+                document.getElementById("id_lat").value = marker.getPosition().lat();
+                document.getElementById("id_lon").value = marker.getPosition().lng();
+                document.getElementById("id_address").value = related;
+                console.log(related);
+                document.getElementById("client-form").submit();
+            });
+        }
+
+        function hideAlert() {
+            $("#required-map").hide("slow");
+        }
+
+        function save() {
+            if (marker == null) {
+                document.getElementById("required-map").style.display = "inline-block"
+            }
+            else {
+                hideAlert();
+                performData(marker);
+            }
+        }
+    </script>
+{% endblock %}
