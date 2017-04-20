@@ -131,3 +131,55 @@ table#t01 th {
 #route_form p + p {
     display: none;
 }
+
+@media (min-width: 768px) {
+    .navbar-collapse {
+        height: auto;
+        border-top: 0;
+        box-shadow: none;
+        max-height: none;
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .navbar-collapse.collapse {
+        display: block !important;
+        width: auto !important;
+        padding-bottom: 0;
+        overflow: visible !important;
+    }
+
+    .navbar-collapse.in {
+        overflow-x: visible;
+    }
+
+    .navbar {
+        max-width:300px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .navbar-nav,
+    .navbar-nav > li,
+    .navbar-left,
+    .navbar-right,
+    .navbar-header
+    {float:none !important;}
+
+    .navbar-right .dropdown-menu {left:0;right:auto;}
+    .navbar-collapse .navbar-nav.navbar-right:last-child {
+        margin-right: 0;
+    }
+}
+
+.background-blue {
+    background-color: #198ECA;
+}
+
+.background-dark {
+    background-color: #414E61;
+}
+
+.radius {
+    border-radius: 0 0 25px 25px;
+}

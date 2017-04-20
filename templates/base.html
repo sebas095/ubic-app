@@ -16,31 +16,70 @@
 </head>
 
 <body>
-    <div id="header">
-    {% block header %}
-    <a href="{% url 'index' %}">{% trans "Home" %}</a> |
+    <div class="container">
+        <div id="header">
+            <img src="/static/img/logo.png" alt="logo">
+            {% block header %}
+            <a href="{% url 'index' %}">{% trans "Home" %}</a> |
+            {% if user.is_authenticated %}
+                {% trans "Logged in" %}: {{ user.username }}
+                (<a href="{% url 'user_edit' user.id %}">{% trans "Edit" %}</a> |
+                <a href="{% url 'user_deactivate' user.id %}">{% trans "Deactivate account" %}</a>)
+                (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> |
+                <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
+            {% else %}
+               <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
+            {% endif %}
+            <hr />
+            {% endblock %}
+        </div>
 
-    {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }}
-        (<a href="{% url 'user_edit' user.id %}">{% trans "Edit" %}</a> |
-        <a href="{% url 'user_deactivate' user.id %}">{% trans "Deactivate account" %}</a>)
-        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> |
-        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
-    {% endif %}
-    <hr />
-    {% endblock %}
-    </div>
+        <div class="row background-dark">
+            <div class="col-sm-3 background-blue">
+                <nav class="navbar navbar-default" role="navigation">
+                  <!-- Brand and toggle get grouped for better mobile display -->
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Brand</a>
+                  </div>
 
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="#">Link</a></li>
+                      <li><a href="#">Link</a></li>
+                    </ul>
+                  </div><!-- /.navbar-collapse -->
+                </nav>
+            </div>
+            <div class="col-sm-7">
+                <img src="/static/img/background.jpg" alt="background">
+                {% block content %}{% endblock %}
+            </div>
+            <div class="col-sm-2">
+                <img src="/static/img/aside.jpg" alt="background">
+            </div>
+        </div>
 
-    <div id="footer">
-    {% block footer %}
-        <hr />
-    {% endblock %}
+        <div id="footer">
+        {% block footer %}
+            <hr />
+            <div class="row background-blue radius">
+                <div class="col-md-offset-2 col-sm-2">
+                    <p>SÚPER</p>
+                    <p>ADMINISTRADOR</p>
+                </div>
+                <div class="col-md-offset-2 col-sm-5">
+                    <p>Dirección y teléfonos de contacto</p>
+                </div>
+            </div>
+        {% endblock %}
+        </div>
     </div>
 </body>
 </html>
