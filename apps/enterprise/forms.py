@@ -12,8 +12,12 @@ class EnterpriseForm(forms.ModelForm):
         exclude = {'is_active', 'created_at'}
 
         widgets = {
-            'nit': forms.HiddenInput()
+            'nit': forms.HiddenInput(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(EnterpriseForm, self).__init__(*args, **kwargs)
+        self.fields['admin_by'].widget.attrs.update({'class': 'form-control'})
 
 class EnterpriseEditForm(forms.ModelForm):
 

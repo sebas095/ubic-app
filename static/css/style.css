@@ -98,7 +98,7 @@ ul.nav li a:hover {
 }
 
 .msg a {
-    margin-left: 60px;
+    margin-left: 28%;
     color: white;
     font-weight: bold;
 }
@@ -122,13 +122,13 @@ ul.nav li a:hover {
 
 .welcome {
     border-radius: 25px;
-    width: 200px;
+    width: 60%;
     height: 30px;
     background-color: #1C2836;
 }
 
 .power-icon {
-    margin-left: 22px;
+    margin-left: 6%;
     font-size: 2em;
     width: 42px;
     height: 45px;
@@ -156,8 +156,13 @@ ul.nav li a:hover {
 .logout p {
     font-size: 1rem;
     color: white;
-    text-align: left;
-    margin-left: 18px;
+    margin-left: 15%;
+}
+
+.login p {
+    font-size: 1rem;
+    color: white;
+    margin-left: 22%;
 }
 
 .box {
@@ -334,4 +339,15 @@ ul.nav li a:hover {
     background-color: white;
     width: 95%;
     height: 665px;
+}
+
+form {
+    padding-top: 5%;
+    padding-left: 5%;
+    position: relative;
+    top: 5%
+}
+
+textarea {
+    resize: none;
 }

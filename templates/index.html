@@ -5,11 +5,18 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-Index page
     {% if msg %}
         <div id="msg">
-            <img src="{% static 'img/Warning-Logo.png' %}" alt="Warning">
-            <h1>{{ msg }}</h1>
+            <div class="row">
+                <div class="col-sm-offset-1">
+                    <img src="{% static 'img/Warning-Logo.png' %}" alt="Warning">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-3">
+                    <h1>{{ msg }}</h1>
+                </div>
+            </div>
         </div>
     {% endif %}
 {% endblock %}

@@ -1,15 +1,78 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<form method="post" action="">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div>
-        <input class="btn btn-success" type="submit" value="{% trans 'Submit' %}" />
-        {% if user.is_authenticated %}
-            <a class="btn btn-info" href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>
-            <a class="btn btn-danger" href="{% url 'user_deactivate' user.id %}">{% trans "Deactivate account" %}</a>
-        {% endif %}
-    </div>
-</form>
+    <form method="post" class="form-horizontal" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_first_name">{% trans 'Firstname' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.first_name }}
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_last_name">{% trans 'Lastname' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.last_name }}
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+             <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_document">{% trans 'Document' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.document }}
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+             <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_phone">{% trans 'Phone' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.phone }}
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+             <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_mobile">{% trans 'Mobile' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.mobile }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_address">{% trans 'Address' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.address }}
+                </div>
+            </div>
+        </div>
+            <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_email">{% trans 'Email' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.email }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-3">
+                    <input class="btn btn-success" type="submit" value="{% trans 'Submit' %}">
+                </div>
+                {% if user.is_authenticated %}
+                    <div class="col-sm-3">
+                        <a class="btn btn-info" href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <a class="btn btn-danger" href="{% url 'user_deactivate' user.id %}">{% trans "Deactivate account" %}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </form>
 {% endblock %}

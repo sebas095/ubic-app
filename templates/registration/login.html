@@ -2,14 +2,35 @@
 {% load i18n %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %} 
-  {{ form.as_p }}
-
-  <input type="submit" value="{% trans 'Log in' %}" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
-
-<p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
-<p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+    <form class="form-horizontal" method="post" action=".">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_{{ form.username.name }}">{% trans 'Username' %}:</label>
+                <div class="col-sm-6">
+                    <input class="form-control" type="text" id="id_{{ form.username.name }}" name="{{ form.username.name }}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-offset-1 col-sm-3" for="id_{{ form.password.name }}">{% trans 'Password' %}:</label>
+            <div class="col-sm-6">
+                <input class="form-control" type="password" id="id_{{ form.password.name }}" name="{{ form.password.name }}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-offset-4 col-sm-3">
+                    <p><a href="{% url 'auth_password_reset' %}">{% trans "Forgot password" %}?</a></p>
+                </div>
+                <div class="col-sm-3">
+                    <p><a href="{% url 'registration_register' %}">{% trans "No tes has registrado?" %}</a></p>
+                </div>
+                <div class="col-sm-offset-6 col-sm-8">
+                    <input type="submit" class="btn btn-success" value="{% trans 'Log in' %}" />
+                    <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

@@ -12,14 +12,24 @@ class ServiceForm(forms.ModelForm):
         'showMeridian': True
     }
 
-    start_date = forms.DateField(widget=DateWidget(attrs={'id': "id_start_date"}, bootstrap_version=3, options=dateTimeOptions),
+    start_date = forms.DateField(widget=DateWidget(attrs={'class': 'form-control', 'id': "id_start_date"}, bootstrap_version=3, options=dateTimeOptions),
                     label=_("Fecha de inicio"), required=True)
-    finish_date = forms.DateField(widget=DateWidget(attrs={'id': "id_finish_date"}, bootstrap_version=3, options=dateTimeOptions),
+    finish_date = forms.DateField(widget=DateWidget(attrs={'class': 'form-control', 'id': "id_finish_date"}, bootstrap_version=3, options=dateTimeOptions),
                     label=_("Fecha de finalización"), required=True)
 
     class Meta:
         model = Service
         exclude = {'is_active'}
+        widgets = {
+            'enterprise': forms.Select(attrs={'class': 'form-control'}),
+            'social_respon': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'type': forms.TextInput(attrs={'class': 'form-control'}),
+            'rate': forms.NumberInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'admin_by': forms.TextInput(attrs={'class': 'form-control'}),
+            'observations': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
 class DeactiveServiceForm(forms.ModelForm):
     class Meta:
