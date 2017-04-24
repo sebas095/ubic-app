@@ -1,135 +1,12 @@
 html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#map {
-    display: inline-block;
-    height: 60% !important;
-    width:  60% !important;
-}
-
-#clients {
-    display: inline-block;
-    position: absolute;
-    top: 15%;
-    margin-left: 15px;
-}
-
-.client_route {
-    display: block;
-    border: 1px solid transparent;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-}
-
-#content {
-    height: 100%;
-    width: 100%;
-}
-
-#btn-route {
-    position: absolute;
-    left: 55%;
-    bottom: 72%;
-    top: 0%;
-}
-
-table {
-    width: 100%;
-}
-
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-}
-
-#map {
-    height: 30%;
-    width: 30%;
-}
-
-#client-form {
-    height: 100%;
-    width: 100%;
-}
-
-#content {
-    height: 100%;
-    width: 100%;
-}
-
-.client_data {
-    display: inline-block;
-}
-
-.right {
-    float: right;
-}
-
-.left {
-    float: left;
-}
-
-.center {
-    font-weight: bold;
-    font-style: italic;
-    margin-top: 15px;
-    text-align: center;
-}
-
-.count {
-    display: none;
-    margin-left: 5px;
-    height: 8vh;
-    display: inline-block;
-}
-
-th, td {
-    padding: 5px;
-    text-align: left;
-}
-
-table#t01 tr:nth-child(even) {
-    background-color: #eee;
-}
-
-table#t01 tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-table#t01 th {
-    background-color: black;
-    color: white;
-}
-
-#warning {
-    text-align: center;
-    font-size: large;
-}
-
-#warning img {
-    height: 40vh;
-}
-
-#msg {
-    text-align: center;
-}
-
-#msg img {
-    height: 40vh;
-}
-
-#route_form p + p {
-    display: none;
+    border: 0;
+    background-image: url('../img/background.jpg');
+    background-repeat: inherit;
+    background-position: center;
+    background-color: transparent;
 }
 
 @media (min-width: 768px) {
@@ -154,9 +31,10 @@ table#t01 th {
     }
 
     .navbar {
-        max-width:300px;
+        max-width: 300px;
         margin-right: 0;
-        margin-left: 0;
+        margin-left: -80px;
+        margin-top: 5px;
     }
 
     .navbar-nav,
@@ -166,10 +44,30 @@ table#t01 th {
     .navbar-header
     {float:none !important;}
 
-    .navbar-right .dropdown-menu {left:0;right:auto;}
+    .navbar-right .dropdown-menu {
+        left: 0;
+        right: auto;
+    }
+
     .navbar-collapse .navbar-nav.navbar-right:last-child {
         margin-right: 0;
     }
+}
+
+ul.nav li a {
+    color: white !important;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 14px;
+}
+
+ul.nav li a:hover {
+    color: #414E61 !important;
+}
+
+#logo {
+    margin-top: 8px;
 }
 
 .background-blue {
@@ -180,6 +78,260 @@ table#t01 th {
     background-color: #414E61;
 }
 
+.radius-up {
+    border-radius: 25px 25px 0 0;
+}
+
+.size {
+    width: 31%;
+}
+
+.padding-bottom {
+    padding-bottom: 5px;
+}
+
+.msg {
+    margin-left: 10px;
+    margin-top: 5px;
+    color: white;
+    text-align: left;
+}
+
+.msg a {
+    margin-left: 60px;
+    color: white;
+    font-weight: bold;
+}
+
+.msg a:hover {
+    color: #002a80;
+}
+
+.padding-top {
+    padding-top: 5px;
+}
+
+.align {
+    margin-top: 30px;
+    margin-left: -10px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.welcome {
+    border-radius: 25px;
+    width: 200px;
+    height: 30px;
+    background-color: #1C2836;
+}
+
+.power-icon {
+    margin-left: 22px;
+    font-size: 2em;
+    width: 42px;
+    height: 45px;
+    background-color: #1C2836;
+    border-radius: 50%;
+}
+
+.power-icon i {
+    padding-left: 9px;
+    padding-top: 9px;
+    text-align: center;
+    color: white;
+}
+
+.power-icon p {
+    margin-top: 5px;
+    font-size: 1rem;
+    color: white;
+}
+
+.power-icon:hover {
+    background-color: #002a80;
+}
+
+.logout p {
+    font-size: 1rem;
+    color: white;
+    text-align: left;
+    margin-left: 18px;
+}
+
+.box {
+    margin-bottom: -5px;
+    width: 1.5px;
+    height: 40px;
+    background-color: #000;
+}
+
+.aside {
+    width: 108.8%;
+    margin-top: -32px;
+}
+
+.img-left img {
+    margin-left: -32%;
+    text-align: right;
+}
+
+.transparent {
+    background-color: transparent;
+    border: transparent;
+}
+
+.nav-up {
+    margin-top: -32px;
+}
+
+.white {
+    color: white;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.dark-blue {
+    background-color: #1974A1 !important;
+    width: 103.5%;
+    height: 72%;
+    margin-top: 10px;
+    margin-left: 65px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    padding-top: 30px;
+    position: absolute;
+}
+
+.dark-blue div {
+    margin-left: 5px;
+}
+
+.icon {
+    margin: 0;
+    margin-top: 15%;
+    margin-left: 90px;
+    padding: 0;
+    background-color: #139DE3;
+    width: 85px;
+    height: 85px;
+}
+
+.user-icon-1 i {
+    margin-left: 20px;
+    margin-top: 8px;
+    text-align: center;
+    color: white;
+}
+
+.user-icon-2 i {
+    margin-left: 35px;
+    position: absolute;
+    top: 48px;
+    text-align: center;
+    color: #139DE3;
+}
+
+.enterprise-icon {
+    margin-left: 0px;
+    text-align: center;
+    color: white;
+}
+
+.enterprise-icon i {
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.service-icon {
+    margin-left: 8px;
+    text-align: center;
+    color: white;
+}
+
+.service-icon i {
+    font-size: 4em;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: -5px;
+}
+
+.home-icon {
+    margin-left: 8px;
+    text-align: center;
+    color: white;
+}
+
+.home-icon i {
+    font-size: 3.5em;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: -5px;
+}
+
+.support-icon {
+    margin-left: 8px;
+    text-align: center;
+    color: white;
+}
+
+.support-icon i {
+    font-size: 3.5em;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: -5px;
+}
+.faq-icon {
+    margin-left: 8px;
+    text-align: center;
+    color: white;
+}
+
+.faq-icon i {
+    font-size: 3.5em;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: -5px;
+}
+
+#footer {
+    margin-top: -41px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+    padding: 0;
+    color: white;
+}
+
 .radius {
     border-radius: 0 0 25px 25px;
+}
+
+.admin-msg {
+    padding: 15px 0;
+    margin-left: 40px;
+    font-weight: bold;
+}
+
+.admin-msg p {
+    text-shadow: 1px 1px 1px #000;
+    line-height: 8px;
+    font-size: 18px;
+}
+
+.info-msg {
+    padding: 15px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.info-msg p {
+    font-size: 18px;
+}
+
+.content {
+    background-color: white;
+    width: 95%;
+    height: 665px;
 }
