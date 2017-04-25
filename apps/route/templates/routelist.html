@@ -2,25 +2,37 @@
 {% load i18n %}
 {% block title %}{% trans "Enterprise list" %} {% endblock %}
 {% block content %}
-    <table id="t01">
-        <tr>
-            <th>#</th>
-            <th>Nit Enterprise</th>
-            <th>Name</th>
-            <th>Created at</th>
-            <th>Actions</th>
-        </tr>
-        {% for route in object_list %}
-            <tr>
-                <td>{{ route.id }}</td>
-                <td>{{ route.enterprise }}</td>
-                <td>{{ route.name }}</td>
-                <td>{{ route.created_at }}</td>
-                <td>
-                    <a href="{% url 'route_edit' route.id %}">{% trans "Editar" %}</a>
-                    <a href="{% url 'route_delete' route.id %}">{% trans "Eliminar" %}</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="row">
+        <div class="col-sm-4">
+            <table class="table table-striped routes">
+                <thead>
+                    <tr class="info">
+                        <th>Nit Enterprise</th>
+                        <th>Name</th>
+                        <th>Created at</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for route in object_list %}
+                    <tr>
+                        <td>{{ route.enterprise }}</td>
+                        <td>{{ route.name }}</td>
+                        <td>{{ route.created_at }}</td>
+                        <td class="actions">
+                            <a href="{% url 'route_edit' route.id %}">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                {% trans "Editar" %}
+                            </a>
+                            <a href="{% url 'route_delete' route.id %}">
+                                <i class="fa fa-remove" aria-hidden="true"></i>
+                                {% trans "Eliminar" %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}

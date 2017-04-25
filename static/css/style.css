@@ -351,3 +351,37 @@ form {
 textarea {
     resize: none;
 }
+
+table {
+    display: inline-block;
+    min-width: 330% !important;
+    max-height: 650px !important;
+    overflow: scroll;
+}
+
+td.actions a:link {
+    text-decoration: none;
+}
+
+td.actions a {
+    margin-right: 5px;
+}
+
+table.routes {
+    margin-left: 30%;
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+table.event {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+table.loan {
+    margin-left: 35%;
+    display: inline-block;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
