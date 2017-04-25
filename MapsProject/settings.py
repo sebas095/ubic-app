@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 import mongoengine
 from datetime import timedelta
@@ -188,6 +189,7 @@ USE_TZ = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = False
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = reverse_lazy('auth_login')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

@@ -3,6 +3,9 @@ html, body {
     margin: 0;
     padding: 0;
     border: 0;
+}
+
+body.background-img {
     background-image: url('../img/background.jpg');
     background-repeat: inherit;
     background-position: center;
@@ -359,6 +362,10 @@ table {
     overflow: scroll;
 }
 
+th, td {
+    white-space: nowrap;
+}
+
 td.actions a:link {
     text-decoration: none;
 }
@@ -368,10 +375,13 @@ td.actions a {
 }
 
 table.routes {
-    margin-left: 30%;
     display: inline-block;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+table.routes td, table.routes th {
+    width: 100%;
 }
 
 table.event {
@@ -380,8 +390,11 @@ table.event {
 }
 
 table.loan {
-    margin-left: 35%;
     display: inline-block;
     overflow-x: hidden;
     overflow-y: scroll;
+}
+
+table.loan td, table.loan th {
+    width: 100%;
 }

@@ -30,9 +30,11 @@
                         {% if client.is_active %}
                             {% trans "Activada" as status %}
                             {% trans "Desactivar" as account %}
+                            {% trans "fa-trash" as icon %}
                         {% else %}
                             {% trans "Desactivada" as status %}
                             {% trans "Activar" as account %}
+                            {% trans "fa-check" as icon %}
                         {% endif %}
                         <td>{{ status }}</td>
                         <td>{{ client.observations }}</td>
@@ -42,6 +44,7 @@
                                 Editar
                             </a>
                             <a href="{% url 'client_deactivate' client.id %}">
+                                <i class="fa {{ icon }}" aria-hidden="true"></i>
                                 {{ account }} cuenta
                             </a>
                         </td>

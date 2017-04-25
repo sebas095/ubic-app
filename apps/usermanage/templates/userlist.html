@@ -33,9 +33,11 @@
                         {% if user.is_active %}
                             {% trans "Activada" as status %}
                             {% trans "Desactivar" as account %}
+                            {% trans "fa-trash" as icon %}
                         {% else %}
                             {% trans "Desactivada" as status %}
                             {% trans "Activar" as account %}
+                            {% trans "fa-check" as icon %}
                         {% endif %}
                         <td>{{ status }}</td>
                         <td class="actions">
@@ -43,7 +45,10 @@
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                                 Editar
                             </a>
-                            <a href="{% url 'user_deactivate' user.id %}">{{ account }} cuenta</a>
+                            <a href="{% url 'user_deactivate' user.id %}">
+                                <i class="fa {{ icon }}" aria-hidden="true"></i>
+                                {{ account }} cuenta
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

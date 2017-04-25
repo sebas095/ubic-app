@@ -9,8 +9,12 @@
     {% else %}
         {% trans 'activar' as active %}
     {% endif %}
-    <h3>¿Desea {{ active }} la cuenta de {{ object.fullname }}?</h3>
-    {{ form.as_p}}
-    <input type="submit" value="{% trans 'Confirmar' %}" />
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>¿Desea {{ active }} la cuenta de {{ object.fullname }}?</h3>
+            {{ form.as_p}}
+            <input class="btn btn-success" type="submit" value="{% trans 'Confirmar' %}" />
+        </div>
+    </div>
 </form>
 {% endblock %}
