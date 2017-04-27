@@ -4,17 +4,84 @@
 {% block content %}
     <form method="post" id="client-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <label>Ubicacion: </label>
-        <div id="map"></div>
-        <div id="required-map" style="display: none" class="alert alert-danger alert-dismissable">
-            <a class="close" onclick="hideAlert()" aria-label="close">&times;</a>
-            <strong>Error!</strong> Debe establecer una ubicacion para el cliente antes de registrarlo.
-            <br>
-            Busque la ubicacion en el mapa y haga click alli.
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_enterprise">{% trans 'Enterprise' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.enterprise }}
+                </div>
+            </div>
         </div>
-        <br>
-        <input type="button" value="{% trans 'Submit' %}" onclick="save()"/>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_fullname">{% trans 'Fullname' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.fullname }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_document">{% trans 'Document' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.document }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_phone">{% trans 'Phone' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.phone }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_address">{% trans 'Address' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.address }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_email">{% trans 'Email' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.email }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_observations">{% trans 'Observations' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.observations }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_observations">{% trans 'Ubiación' %}:</label>
+                <div class="col-sm-6">
+                    <div id="required-map" style="display: none" class="alert alert-danger alert-dismissable">
+                        <a class="close" onclick="hideAlert()" aria-label="close">&times;</a>
+                        <p></p><strong>Error!</strong> Debe establecer una ubicacion para el cliente antes de registrarlo.
+                        Búsque la ubicación en el mapa y haga click alli.
+                    </div>
+                </div>
+                <div class="col-sm-10 margin-right">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-offset-4 col-sm-3">
+                    <input class="btn btn-success" type="button" value="{% trans 'Submit' %}" onclick="save()"/>
+                </div>
+            </div>
+        </div>
     </form>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7NUMl0ZdbpgytjC5N3nwIps43cXbeYpU"></script>
     <script src={% static "js/geolocation-marker.js" %}></script>

@@ -398,3 +398,54 @@ table.loan {
 table.loan td, table.loan th {
     width: 100%;
 }
+
+.all-size {
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 60vh;
+    width: 45vw;
+}
+
+.margin-rigt {
+    margin-right: 5px !important;
+}
+
+.content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#route_form {
+    display: block;
+    margin-bottom: 8%;
+}
+
+#btn-route {
+    border-radius: 50%;
+    font-size: 1.5em;
+}
+
+.client_data {
+    display: inline-block;
+}
+
+.right {
+    float: right;
+}
+
+.count {
+    display: none;
+    height: 15%;
+    width: 15% !important;
+    margin-right: 3%;
+    display: inline-block;
+}
+
+.center {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

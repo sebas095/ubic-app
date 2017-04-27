@@ -12,7 +12,7 @@ class RouteForm(DocumentForm):
         document = Route
         fields = ["name", "directions", "clients"]
         widgets = {
-            'name': TextInput(attrs={'placeholder': _("Name for the route")}),
+            'name': TextInput(attrs={'placeholder': _("Name for the route"), 'class': 'form-control'}),
             'directions': HiddenInput(),
             'meta_clients': HiddenInput()
         }
