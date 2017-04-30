@@ -25,10 +25,12 @@
                             <img src="/static/img/logo.png" alt="logo">
                         </div>
                         <div class="col-sm-offset-9 col-sm-4 background-dark radius-up size padding-bottom">
+                            <div class="inline-block box box-left"></div>
                             <p class="msg">Bienvenido(a)</p>
                             <div class="inline-block welcome msg padding-top">
                                 <a href="{% url 'user_edit' user.id %}">{{ user.username }}</a>
                             </div>
+                            <div class="inline-block box box-right"></div>
                             <div class="inline-block power-icon">
                                 <a href="{% url 'auth_logout' %}">
                                     <i class="fa fa-power-off" aria-hidden="true"></i>

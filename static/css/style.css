@@ -175,6 +175,16 @@ ul.nav li a:hover {
     background-color: #000;
 }
 
+.box-left {
+    position: absolute;
+    top: 35%;
+}
+
+.box-right {
+    position: absolute;
+    top: 38%;
+}
+
 .aside {
     width: 108.8%;
     margin-top: -32px;
@@ -399,11 +409,6 @@ table.loan td, table.loan th {
     width: 100%;
 }
 
-.all-size {
-    height: 100%;
-    width: 100%;
-}
-
 #map {
     height: 60vh;
     width: 45vw;
@@ -448,4 +453,49 @@ table.loan td, table.loan th {
     text-align: center;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.list-icon {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: -3%;
+}
+
+.list-icon i {
+    font-size: 20px;
+}
+
+.list-icon:hover {
+    color: #1974A1;
+}
+
+.view {
+    margin-top: 2%;
+    margin-left: 35%;
+}
+
+.view p {
+    font-size: 14px;
+    margin-left: 10%;
+}
+
+.txt {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.icon-color {
+    color: #1974A1;
+}
+
+.view-rack {
+    box-shadow: 1px 1px 1px 1px;
+}
+
+.view-rack > p {
+    padding-top: 5px;
+}
+
+.last-rack div {
+    margin-bottom: 2%;
 }
