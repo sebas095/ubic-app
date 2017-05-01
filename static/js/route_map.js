@@ -1,7 +1,7 @@
 /**
  * Created by sebastian on 10/03/17.
  */
-let map, ROUTE;
+let map, ROUTE, myPosition;
 const COLORS_ARRAY = [
     "#0000FF", "#8A2BE2", "#A52A2A", "#000000", "#DEB887",
     "#5F9EA0", "#7FFF00", "#D2691E", "#FF7F50", "#6495ED",
@@ -27,27 +27,27 @@ function initMap() {
         }
     });
 
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition((position) => {
         const {latitude, longitude} = position.coords;
+        const center = {
+            lat: latitude,
+            lng: longitude
+        };
+
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: latitude,
-                lng: longitude
-            },
+            center: center,
             zoom: 19
         });
 
-        // google.maps.event.addListener(map, 'click', (ev) => {
-        //    console.log(ev.latLng);
-        //   placeMarker(ev.latLng);
-        //    WAYPOINTS.push([
-        //       ev.latLng.lat(),
-        //        ev.latLng.lng()
-         //   ]);
-        //});
+        myPosition = placeMarker({lat: latitude, lng: longitude}, 'Aquí estoy :D!!', false);
+        navigator.geolocation.watchPosition(showMap);
     });
 }
 
+function showMap(position) {
+	const {latitude, longitude} = position.coords;
+	myPosition.setPosition({lat: latitude, lng: longitude});
+}
 
 function placeMarker(location, label = '') {
     const marker = new google.maps.Marker({
