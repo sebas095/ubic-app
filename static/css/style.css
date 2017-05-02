@@ -521,10 +521,28 @@ table.loan td, table.loan th {
     box-shadow: 1px 1px 1px 1px;
 }
 
+.view-rack:hover {
+    background-color: rgba(192, 192, 192, 0.3);
+}
+
 .view-rack > p {
     padding-top: 5px;
 }
 
 .last-rack div {
     margin-bottom: 2%;
+}
+
+.dropdown-header, .dropdown-header i {
+    color: #fff;
+    font-weight: bold;
+}
+
+.background-blue li a {
+    color: #fff;
+}
+
+.background-blue li a:hover {
+    color: #414E61 !important;
+    background-color: #198ECA;
 }
