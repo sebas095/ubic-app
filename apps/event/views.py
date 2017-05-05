@@ -1,5 +1,7 @@
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from .models import Event, Loan
+from apps.route.models import Route
+from apps.enterprise.models import Enterprise
 from .forms import EventForm, LoanForm
 from django.core.urlresolvers import reverse_lazy
 from utils.decorators import require_service, require_login
@@ -7,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
+import json
 
 # Create your views here.
 @require_login
@@ -110,5 +113,9 @@ class EventAPIView(RetrieveAPIView):
     renderer_classes = (TemplateHTMLRenderer,)
 
     def get(self, request, *args, **kwargs):
-        return Response(template_name='event/event_form.html')
+        nit = Enterprise.objects.filter(admin_by__username=request.user.username)[0].nit
+        routes = Route.objects(enterprise=nit)
+        routes = list(map(lambda r: r.name, routes))
+        form = {'route': routes}
+        return Response({'form': form}, template_name='event/event_form.html')
 
