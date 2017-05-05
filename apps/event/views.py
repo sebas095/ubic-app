@@ -1,9 +1,12 @@
 from django.views.generic import CreateView, UpdateView, ListView, DeleteView
-from django.http import HttpResponseRedirect
 from .models import Event, Loan
 from .forms import EventForm, LoanForm
 from django.core.urlresolvers import reverse_lazy
 from utils.decorators import require_service, require_login
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
 
 # Create your views here.
 @require_login
@@ -101,3 +104,11 @@ class LoanListView(ListView):
 
     def get_queryset(self):
         return Loan.objects(created_by=self.request.user.username)
+
+class EventAPIView(RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (TemplateHTMLRenderer,)
+
+    def get(self, request, *args, **kwargs):
+        return Response(template_name='event/event_form.html')
+
