@@ -50,7 +50,7 @@ function showMap(position) {
 }
 
 function placeMarker(location, label = '') {
-    const marker = new google.maps.Marker({
+    return new google.maps.Marker({
         position: location,
         label: label,
         map: map
