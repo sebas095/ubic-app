@@ -6,10 +6,13 @@ from .forms import EventForm, LoanForm
 from django.core.urlresolvers import reverse_lazy
 from utils.decorators import require_service, require_login
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, CreateAPIView
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-import json
+from rest_framework import status
+from .serializers import EventSerializer
+from bson import ObjectId
+from datetime import datetime
 
 # Create your views here.
 @require_login
@@ -115,7 +118,29 @@ class EventAPIView(RetrieveAPIView):
     def get(self, request, *args, **kwargs):
         nit = Enterprise.objects.filter(admin_by__username=request.user.username)[0].nit
         routes = Route.objects(enterprise=nit)
-        routes = list(map(lambda r: r.name, routes))
+        routes = list(map(lambda r: r.name + '^' + str(r.id), routes))
         form = {'route': routes}
         return Response({'form': form}, template_name='event/event_form.html')
 
+class EventCreateAPIView(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = EventSerializer
+
+    def post(self, request, *args, **kwargs):
+        date = datetime.strptime(request.POST['event_date'], '%Y-%m-%d %H:%M:%S')
+        routes = request.POST.getlist('routes[]')
+        routes = list(map(lambda r: ObjectId(r), routes))
+
+        data = {
+            'created_by': request.user.username,
+            'event_date':  date.isoformat(),
+            'description': request.POST['description'],
+            'type': request.POST['type'],
+            'route': routes,
+        }
+        event = EventSerializer(data=data)
+
+        if event.is_valid():
+            event.save()
+            return Response({'ok': True}, status=status.HTTP_201_CREATED)
+        return Response(event.errors, status=status.HTTP_400_BAD_REQUEST)

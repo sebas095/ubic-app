@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 
 from .views import EventCreateView, EventUpdateView, EventListView, EventDeleteView, \
-                LoanCreateView, LoanUpdateView, LoanListView, LoanDeleteView, EventAPIView
+                LoanCreateView, LoanUpdateView, LoanListView, LoanDeleteView, \
+                EventAPIView, EventCreateAPIView
 
 urlpatterns = [
+    url(r'api/new/$', EventCreateAPIView.as_view(), name='event_create_new_api'),
     url(r'api/create/$', EventAPIView.as_view(), name='event_create_api'),
     url(r'loan/create/$', LoanCreateView.as_view(), name='loan_create'),
     url(r'loan/edit/(?P<id>\w+)/$', LoanUpdateView.as_view(), name='loan_edit'),
