@@ -546,3 +546,16 @@ table.loan td, table.loan th {
     color: #414E61 !important;
     background-color: #198ECA;
 }
+
+#myTable_filter {
+    margin-left: 85px !important;
+}
+
+#myTable_length, #myTable_info {
+    margin-left: 10px !important;
+}
+
+.pagination {
+    display: inline-flex;
+    margin-left: 130px !important;
+}
