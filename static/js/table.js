@@ -1,12 +1,15 @@
 $(() => {
+    $("#myTable").DataTable();
     $('.list-btn').click((ev) => {
         $('#data').html('');
+        $("#myTable_wrapper").css('display', 'block');
         $('.rack-btn').removeClass('icon-color')
         $('.list-btn').addClass('icon-color');
         $('table').css('display', 'block');
     });
 
     $('.rack-btn').click((ev) => {
+        $("#myTable_wrapper").css('display', 'none');
         $('.list-btn').removeClass('icon-color');
         $('.rack-btn').addClass('icon-color');
         $('table').css('display', 'none');
