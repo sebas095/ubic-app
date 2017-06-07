@@ -33,6 +33,7 @@ urlpatterns += i18n_patterns(
     url('^route/', include('apps.route.urls'), name='route'),
     url('^help/', include('apps.help.urls'), name='help'),
     url('^event/', include('apps.event.urls'), name='event'),
+    url('^notification/', include('apps.event.urls'), name='notification'),
     url(r'^$', HomePageView.as_view(), name="index"),
 )
 

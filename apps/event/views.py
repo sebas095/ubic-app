@@ -142,5 +142,5 @@ class EventCreateAPIView(CreateAPIView):
 
         if event.is_valid():
             event.save()
-            return Response({'ok': True}, status=status.HTTP_201_CREATED)
+            return Response({'ok': True, 'id': event.id}, status=status.HTTP_201_CREATED)
         return Response(event.errors, status=status.HTTP_400_BAD_REQUEST)

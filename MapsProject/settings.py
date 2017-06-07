@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
 	'192.168.43.105',
 	'localhost',
     '127.0.0.1',
-	'10.253.61.56',
+	'10.253.50.149',
 	'192.168.0.36',
 ]
 
@@ -64,9 +64,6 @@ INSTALLED_APPS = [
     # Rest framework Apps
     'rest_framework',
     'rest_framework_mongoengine',
-
-    # Channels
-    'channels',
 
     # Project Apps
     'apps.usermanage',
@@ -132,20 +129,6 @@ TEMPLATES = [
 #CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'MapsProject.wsgi.application'
-
-# Channels
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgi_redis.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [
-                (os.environ.get('REDIS_HOST', 'localhost'), 6379)
-            ],
-            #"hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
-        },
-        "ROUTING": "MapsProject.routing.channel_routing",
-    },
-}
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
