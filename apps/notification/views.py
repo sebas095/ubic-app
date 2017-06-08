@@ -27,9 +27,10 @@ class NotificationListAPI(GenericAPIView):
             "admin_by": item.admin_by,
             "event": {
                 "created_by": item.event.created_by,
-                "event_date": item.event.event_date,
+                "description": item.event.description,
+                "event_date": str(item.event.event_date),
                 "type": item.event.type,
-                "route": list(map(lambda r: r.name, item.event.route))
+                "routes": list(map(lambda r: r.name, item.event.route))
             }
         }
 
@@ -67,6 +68,6 @@ class NotificationDeleteAPI(RetrieveDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         id = kwargs.get('id')
-        event = Event.objects(id=id)[0]
-        event.delete()
+        notif = Notification.objects(id=id)[0]
+        notif.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

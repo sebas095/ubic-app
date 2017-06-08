@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import EventSerializer
 from bson import ObjectId
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Create your views here.
 @require_login
@@ -142,5 +142,13 @@ class EventCreateAPIView(CreateAPIView):
 
         if event.is_valid():
             event.save()
-            return Response({'ok': True, 'id': event.id}, status=status.HTTP_201_CREATED)
+            ev = Event.objects(
+                created_by=request.user.username,
+                description=request.POST['description'],
+                type=request.POST['type'],
+            )
+            my_tyme = (date + timedelta(hours=5)).isoformat()
+            ev = list(filter(lambda e: e.event_date.isoformat() == my_tyme, ev))[0]
+
+            return Response({'ok': True, 'id': str(ev.id)}, status=status.HTTP_201_CREATED)
         return Response(event.errors, status=status.HTTP_400_BAD_REQUEST)
