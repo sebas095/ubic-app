@@ -1,5 +1,7 @@
 from .models import Notification, Event
 from django.http import HttpResponse
+import django.core.mail
+from apps.usermanage.models import Profile, User
 import json
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import CreateAPIView, GenericAPIView, RetrieveDestroyAPIView
@@ -42,13 +44,39 @@ class NotificationCreateAPI(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         event = Event.objects(id=request.POST['id'])
-        admin_by = request.user.username
+        email = ""
+        fullname = ""
 
         if len(event) > 0:
-            # TODO
-            # send email
-            # save with admin name
+            admin_by = Profile.objects.filter(user__username=request.user.username)[0].register_by
+            if admin_by:
+                fullname = admin_by.first_name + " " + admin_by.last_name
+                email = admin_by.email
+                admin_by = admin_by.username
+            else:
+                admin_by = User.objects.filter(username=request.user.username)[0]
+                fullname = admin_by.first_name + " " + admin_by.last_name
+                email = admin_by.email
+                admin_by = admin_by.username
+
             event = event[0]
+            routes = list(map(lambda r: r.name, event.route))
+            django.core.mail.send_mail(
+                'Notificación UbicApp',
+                '',
+                'gefetic@gmail.com',
+                [email],
+                html_message='Estimado usuario ' + fullname + \
+                    ',<br><br>Se le informa que el usuario ' + request.user.username + \
+                    ' ha creado un evento con la siguiente información:<br>' + \
+                    '<ul><li><b>Fecha del evento: </b>' + str(event.event_date) + '</li>' + \
+                    '<li><b>Descripción: </b>' + event.description + '</li>' + \
+                    '<li><b>Tipo: </b>' + event.type + '</li>' + \
+                    '<li><b>Ruta(s): </b>' + ", ".join(routes) + '</li></ul>' + \
+                    '<br><br>Att,<br>La administración',
+                fail_silently=False,
+            )
+
             data = {
                 'event': event.id,
                 'admin_by': admin_by
