@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from .views import NotificationListAPI, NotificationCreateAPI, NotificationDeleteAPI
+from .views import NotificationListAPI, NotificationCreateAPI, NotificationDeleteAPI, NotificationCountAPI
 
 urlpatterns = [
     url(r'api/list/$', NotificationListAPI.as_view(), name='notification_list_api'),
+    url(r'api/count/$', NotificationCountAPI.as_view(), name='notification_count_api'),
     url(r'api/create/$', NotificationCreateAPI.as_view(), name='notification_create_api'),
     url(r'api/delete/(?P<id>\w+)/$', NotificationDeleteAPI.as_view(), name='notification_delete_api')
 ]

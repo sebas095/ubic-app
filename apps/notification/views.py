@@ -11,6 +11,15 @@ from rest_framework_jwt.settings import api_settings
 from .serializers import NotificationSerializer
 
 # Create your views here.
+class NotificationCountAPI(GenericAPIView):
+    lookup_field = 'id'
+    serializer_class = NotificationSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        notifications = Notification.objects(admin_by=request.user.username)
+        return HttpResponse(json.dumps(len(notifications)), content_type='application/json')
+
 class NotificationListAPI(GenericAPIView):
     lookup_field = 'id'
     serializer_class = NotificationSerializer
@@ -73,7 +82,7 @@ class NotificationCreateAPI(CreateAPIView):
                     '<li><b>Descripción: </b>' + event.description + '</li>' + \
                     '<li><b>Tipo: </b>' + event.type + '</li>' + \
                     '<li><b>Ruta(s): </b>' + ", ".join(routes) + '</li></ul>' + \
-                    '<br><br>Att,<br>La administración',
+                    '<br><br>Atte,<br>La administración',
                 fail_silently=False,
             )
 
