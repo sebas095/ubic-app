@@ -16,7 +16,6 @@ from datetime import timedelta
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -27,11 +26,11 @@ SECRET_KEY = 'l!^h-@d-!c@3_olr$-k^fsp3&47bhd-1ny1xm6j%=02-h@*$&-'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-	'192.168.43.105',
-	'localhost',
-    	'127.0.0.1',
-	'10.253.58.167',
-	'192.168.0.36',
+    '192.168.43.105',
+    'localhost',
+    '127.0.0.1',
+    '10.253.58.167',
+    '192.168.0.36',
 ]
 
 # Application definition
@@ -56,7 +55,7 @@ INSTALLED_APPS = [
     'mongogeneric',
 
     # Crispy App
-    #'crispy_forms',
+    # 'crispy_forms',
 
     # Rest framework Apps
     'rest_framework',
@@ -99,7 +98,7 @@ JWT_AUTH = {
 }
 
 CRONJOBS = [
-    ('0 0 * * *', 'apps.service.cron.scheduled_job')#, '>> /home/sebastian/Escritorio/logs.txt')
+    ('0 0 * * *', 'apps.service.cron.scheduled_job')  # , '>> /home/sebastian/Escritorio/logs.txt')
 ]
 
 CRONTAB_COMMAND_SUFFIX = '2>&1'
@@ -123,7 +122,7 @@ TEMPLATES = [
     },
 ]
 
-#CRISPY_TEMPLATE_PACK = 'bootstrap3'
+# CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 WSGI_APPLICATION = 'MapsProject.wsgi.application'
 
@@ -137,7 +136,7 @@ DATABASES = {
     }
 }
 
-mongoengine.connect(db="YouTrackDB", alias="secondary")
+mongoengine.connect(db="ubicapp", alias="secondary", host="mongodb://sebas.duque:enero23@ds127892.mlab.com:27892/ubicapp")
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -182,7 +181,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # ------ Accounts settings -------
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = False
@@ -198,7 +196,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-
 
 # ------- Email Settings -------
 EMAIL_USE_TLS = True
