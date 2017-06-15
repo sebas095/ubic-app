@@ -1,4 +1,6 @@
 appdirs==1.4.3
+attrs==17.2.0
+Automat==0.6.0
 Django==1.10.5
 django-common-helpers==0.9.0
 django-crispy-forms==1.6.1
@@ -10,12 +12,15 @@ django-registration-redux==1.4
 django-rest-framework-mongoengine==3.3.1
 djangorestframework==3.6.2
 djangorestframework-jwt==1.10.0
+incremental==17.5.0
 mongodbforms==0.3.1
 mongoengine==0.10.1
 mongogeneric==0.1a0
+msgpack-python==0.4.8
 packaging==16.8
 PyJWT==1.4.2
 pymongo==3.4.0
 pyparsing==2.1.10
 pytz==2016.10
 six==1.10.0
+sphinx-me==0.3

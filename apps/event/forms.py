@@ -20,10 +20,15 @@ class EventForm(DocumentForm):
     class Meta:
         document = Event
         fields = ['event_date', 'description', 'type', 'route']
+        widgets = {
+            'type': forms.TextInput(attrs={'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         super(EventForm, self).__init__(*args, **kwargs)
+        self.fields['description'].widget.attrs.update({'class': 'form-control'})
+        self.fields['route'].widget.attrs.update({'class': 'form-control'})
 
     def save(self, commit=True):
         event = super(EventForm, self).save(commit=False)
@@ -43,6 +48,11 @@ class LoanForm(DocumentForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
         super(LoanForm, self).__init__(*args, **kwargs)
+        self.fields['total_amount'].widget.attrs.update({'class': 'form-control'})
+        self.fields['payment_fee'].widget.attrs.update({'class': 'form-control'})
+        self.fields['rate'].widget.attrs.update({'class': 'form-control'})
+        self.fields['collection'].widget.attrs.update({'class': 'form-control'})
+        self.fields['event'].widget.attrs.update({'class': 'form-control'})
 
     def save(self, commit=True):
         loan = super(LoanForm, self).save(commit=False)

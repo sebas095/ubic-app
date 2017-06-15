@@ -1,45 +1,87 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 {% block title %}{% trans "User list" %} {% endblock %}
 {% block content %}
-    <table id="t01">
-        <tr>
-            <th>#</th>
-            <th>Username</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Last Login</th>
-            <th>Last Joined</th>
-            <th>Created by</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        {% for user in object_list %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.groups.all.0 }}</td>
-                <td>{{ user.last_login }}</td>
-                <td>{{ user.date_joined }}</td>
-                <td>{{ user.profile.register_by.username }}</td>
-                {% if user.is_active %}
-                    {% trans "Activada" as status %}
-                    {% trans "Desactivar" as account %}
-                {% else %}
-                    {% trans "Desactivada" as status %}
-                    {% trans "Activar" as account %}
-                {% endif %}
-                <td>{{ status }}</td>
-                <td>
-                    <a href="{% url 'user_edit' user.id %}">Editar</a>
-                    <a href="{% url 'user_deactivate' user.id %}">{{ account }} cuenta</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="row">
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-2 view">
+                <p>Ver como:</p>
+            </div>
+            <div class="col-sm-1 list-icon icon-color list-btn">
+                <div class="row">
+                    <div class="col-sm-6">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="txt">Lista</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1 list-icon rack-btn">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <i class="fa fa-th-large" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="txt">Rejilla</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <table class="table table-bordered table-hover" id="myTable">
+                <thead>
+                    <tr class="info">
+                        <th>Username</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Last Login</th>
+                        <th>Last Joined</th>
+                        <th>Created by</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for user in object_list %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.groups.all.0 }}</td>
+                        <td>{{ user.last_login }}</td>
+                        <td>{{ user.date_joined }}</td>
+                        <td>{{ user.profile.register_by.username }}</td>
+                        {% if user.is_active %}
+                            {% trans "Activada" as status %}
+                            {% trans "Desactivar" as account %}
+                            {% trans "fa-trash" as icon %}
+                        {% else %}
+                            {% trans "Desactivada" as status %}
+                            {% trans "Activar" as account %}
+                            {% trans "fa-check" as icon %}
+                        {% endif %}
+                        <td>{{ status }}</td>
+                        <td class="actions">
+                            <a href="{% url 'user_edit' user.id %}">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Editar
+                            </a>
+                            <a href="{% url 'user_deactivate' user.id %}">
+                                <i class="fa {{ icon }}" aria-hidden="true"></i>
+                                {{ account }} cuenta
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" id="data"></div>
+    </div>
+    <script src="{% static 'js/table.js' %}"></script>
 {% endblock %}

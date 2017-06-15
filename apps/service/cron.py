@@ -13,7 +13,7 @@ def scheduled_job():
             django.core.mail.send_mail(
                 'Vencimiento del servicio',
                 'Estimado usuario ' + fullname + \
-                ',\n\nSe le informa que su servicio esta próximo a vencerse\n\nAtt,\nLa administración',
+                ',\n\nSe le informa que su servicio esta próximo a vencerse\n\nAtte,\nLa administración',
                 'gefetic@gmail.com',
                 [email],
                 fail_silently=False,

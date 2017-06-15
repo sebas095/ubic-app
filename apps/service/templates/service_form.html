@@ -5,9 +5,62 @@
     {{ form.media }}
 {% endblock %}
 {% block content %}
-<form method="post" id="form"   >
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+    <form method="post" class="form-horizontal" id="form">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_enterprise">{% trans 'Empresa' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.enterprise }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_start_date">{% trans 'Fecha de inicio' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.start_date }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_finish_date">{% trans 'Fecha de finalización' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.finish_date }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_">{% trans 'Tipo' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.type }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_">{% trans 'Tarifa' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.rate }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <label class="control-label col-sm-offset-1 col-sm-3" for="id_observations">{% trans 'Observaciones' %}:</label>
+                <div class="col-sm-6">
+                    {{ form.observations }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <input class="btn btn-success" type="submit" value="{% trans 'Submit' %}" />
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

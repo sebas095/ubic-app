@@ -1,30 +1,70 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
 {% block title %}{% trans "Enterprise list" %} {% endblock %}
 {% block content %}
-    <table id="t01">
-        <tr>
-            <th>#</th>
-            <th>{% trans "Monto total" %}</th>
-            <th>{% trans "Cuotas" %}</th>
-            <th>{% trans "Tasa" %}</th>
-            <th>{% trans "Reacudado" %}</th>
-            <th>{%  trans "Evento" %}</th>
-            <th>{% trans "Acciones" %}</th>
-        </tr>
-        {% for loan in object_list %}
-            <tr>
-                <td>{{ loan.id }}</td>
-                <td>{{ loan.total_amount }}</td>
-                <td>{{ loan.payment_fee }}</td>
-                <td>{{ loan.rate }}</td>
-                <td>{{ loan.collection }}</td>
-                <td>{{ loan.event}}</td>
-                <td>
-                    <a href="{% url 'loan_edit' loan.id %}">Editar</a>
-                    <a href="{% url 'loan_delete' loan.id %}">Eliminar</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="row">
+        <div class="row">
+            <div class="col-sm-offset-3 col-sm-2 view">
+                <p>Ver como:</p>
+            </div>
+            <div class="col-sm-1 list-icon icon-color list-btn">
+                <div class="row">
+                    <div class="col-sm-6">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="txt">Lista</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1 list-icon rack-btn">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <i class="fa fa-th-large" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="txt">Rejilla</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <table class="table table-bordered table-hover loan" id="myTable">
+                <thead>
+                    <tr class="info">
+                        <th>{% trans "Monto total" %}</th>
+                        <th>{% trans "Cuotas" %}</th>
+                        <th>{% trans "Tasa" %}</th>
+                        <th>{% trans "Reacudado" %}</th>
+                        <th>{%  trans "Evento" %}</th>
+                        <th>{% trans "Acciones" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for loan in object_list %}
+                    <tr>
+                        <td>{{ loan.total_amount }}</td>
+                        <td>{{ loan.payment_fee }}</td>
+                        <td>{{ loan.rate }}</td>
+                        <td>{{ loan.collection }}</td>
+                        <td>{{ loan.event}}</td>
+                        <td class="actions">
+                            <a href="{% url 'loan_edit' loan.id %}">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Editar
+                            </a>
+                            <a href="{% url 'loan_delete' loan.id %}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-offset-1 col-sm-10 col-sm-offset-1" id="data"></div>
+    </div>
+    <script src="{% static 'js/table.js' %}"></script>
 {% endblock %}

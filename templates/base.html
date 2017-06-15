@@ -6,41 +6,246 @@
 <head>
     <title>{% block title %}User test{% endblock %}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     {% block headers %}
     {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 
-<body>
-    <div id="header">
-    {% block header %}
-    <a href="{% url 'index' %}">{% trans "Home" %}</a> |
+{% if user.is_authenticated %}
+    <body class="background-img">
+        <div class="container">
+                <div class="row" id="header">
+                    {% block header %}
+                        <div class="col-sm-2" id="logo">
+                            <img src="/static/img/logo.png" alt="logo">
+                        </div>
+                        <div class="col-sm-offset-9 col-sm-4 background-dark radius-up size padding-bottom">
+                            <div class="inline-block box box-left"></div>
+                            <p class="msg">Bienvenido(a)</p>
+                            <div class="inline-block welcome msg padding-top">
+                                <a href="{% url 'user_edit' user.id %}">{{ user.username }}</a>
+                            </div>
+                            <div class="inline-block box box-right"></div>
+                            <div class="inline-block power-icon">
+                                <a href="{% url 'auth_logout' %}">
+                                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="col-sm-offset-7 col-sm-6 logout">
+                                <p>Cerrar Sesión</p>
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
 
-    {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }}
-        (<a href="{% url 'user_edit' user.id %}">{% trans "Edit" %}</a> |
-        <a href="{% url 'user_deactivate' user.id %}">{% trans "Deactivate account" %}</a>)
-        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> |
-        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
-    {% endif %}
-    <hr />
-    {% endblock %}
-    </div>
+                <div class="row background-dark aside">
+                    <div class="col-sm-3 background-blue nav-up">
+                        <nav class="navbar navbar-default transparent" role="navigation">
+                          <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                </button>
+                            </div>
 
-    <div id="content">
-    {% block content %}{% endblock %}
-    </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                <div class="row">
+                                    <div class="col-sm-3 icon">
+                                        <div class="user-icon-1">
+                                            <i class="fa fa-user fa-5x" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="user-icon-2">
+                                            <i class="fa fa-user fa-2x" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <h4 class="white">Gestión de usuarios</h4>
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{% url 'userlist' %}">> Listar</a></li>
+                                            <li><a href="/accounts/register/">> Formulario de registro</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
-    <div id="footer">
-    {% block footer %}
-        <hr />
-    {% endblock %}
-    </div>
-</body>
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                <div class="row">
+                                    <div class="col-sm-3 icon">
+                                        <div class="enterprise-icon">
+                                            <i class="fa fa-user-secret fa-5x" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <h4 class="white">Gestión de empresas</h4>
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{% url 'enterprise_list' %}">> Listar</a></li>
+                                            <li><a href="{% url 'enterprise_create' %}">> Formulario de registro</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                <div class="row">
+                                    <div class="col-sm-3 icon">
+                                        <div class="service-icon">
+                                            <i class="fa fa-cogs fa-5x" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <h4 class="white">Gestión de servicios</h4>
+                                        <ul class="nav navbar-nav">
+                                            <li><a href="{% url 'service_list' %}">> Listar</a></li>
+                                            <li><a href="{% url 'service_create' %}">> Formulario de registro</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                <div class="row">
+                                    <div class="col-sm-3 icon">
+                                        <div class="more-icon">
+                                            <i class="fa fa-chevron-circle-down fa-5x" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="dropdown">
+                                            <h4 class="white-info dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Más
+                                                <span class="caret"></span>
+                                            </h4>
+                                            <ul class="dropdown-menu background-blue">
+                                                <li class="dropdown-header">
+                                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                                    Gestión de Clientes
+                                                </li>
+                                                <li><a href="{% url 'client_list' %}">> Listar</a></li>
+                                                <li><a href="{% url 'client_create' %}">> Formulario de registro</a></li>
+                                                <li class="divider"></li>
+                                                <li class="dropdown-header">
+                                                    <i class="fa fa-road" aria-hidden="true"></i>
+                                                    Gestión de Rutas
+                                                </li>
+                                                <li><a href="{% url 'route_list' %}">> Listar</a></li>
+                                                <li><a href="{% url 'route_create' %}">> Formulario de registro</a></li>
+                                                <li class="divider"></li>
+                                                <li class="dropdown-header">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    Gestión de Eventos
+                                                </li>
+                                                <li><a href="{% url 'event_list' %}">> Listar</a></li>
+                                                <li><a href="{% url 'event_create' %}">> Formulario de registro</a></li>
+                                                <li class="divider"></li>
+                                                <li class="dropdown-header">
+                                                    <i class="fa fa-usd" aria-hidden="true"></i>
+                                                    Gestión de Préstamos
+                                                </li>
+                                                <li><a href="{% url 'loan_list' %}">> Listar</a></li>
+                                                <li><a href="{% url 'loan_create' %}">> Formulario de registro</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dark-blue">
+                                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="home-icon">
+                                                <i class="fa fa-home fa-5x" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8">
+                                            <ul class="nav navbar-nav align">
+                                                <li><a href="{% url 'index' %}">Volver al inicio</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="support-icon">
+                                                <i class="fa fa-volume-control-phone fa-5x" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <ul class="nav navbar-nav align">
+                                                <li><a href="{% url 'help_create' %}">Soporte</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="faq-icon">
+                                                <i class="fa fa-question-circle fa-5x" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <ul class="nav navbar-nav align">
+                                                <li><a href="#">FAQ</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="content">
+                            {% block content %}{% endblock %}
+                        </div>
+                    </div>
+                    <div class="col-sm-2 picture">
+                        <div class="img-left">
+                            <img src="/static/img/aside.jpg" alt="background">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="footer">
+                {% block footer %}
+                    <hr />
+                    <div class="row background-blue radius">
+                        <div class="col-md-offset-2 col-sm-2 admin-msg">
+                            <p>SÚPER</p>
+                            <p>ADMINISTRADOR</p>
+                        </div>
+                        <div class="col-md-offset-2 col-sm-5 info-msg">
+                            <p>Dirección y teléfonos de contacto</p>
+                        </div>
+                    </div>
+                {% endblock %}
+                </div>
+            </div>
+    </body>
+{% else %}
+    {% block headers_login %}{% endblock %}
+    <body id="auth-login">
+        <div class="container">
+            <div class="row" id="header">
+                {% block content_login %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+{% endif %}
 </html>

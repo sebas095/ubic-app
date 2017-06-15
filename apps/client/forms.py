@@ -25,7 +25,13 @@ class ClientForm(forms.ModelForm):
         super(ClientForm, self).__init__(*args, **kwargs)
         self.fields['enterprise'] = forms.ModelChoiceField(
             queryset=Enterprise.objects.filter(admin_by__username=self.admin_by.username))
-
+        self.fields['enterprise'].widget.attrs.update({'class': 'form-control'})
+        self.fields['fullname'].widget.attrs.update({'class': 'form-control'})
+        self.fields['document'].widget.attrs.update({'class': 'form-control'})
+        self.fields['phone'].widget.attrs.update({'class': 'form-control'})
+        self.fields['address'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['observations'].widget.attrs.update({'class': 'form-control'})
 
 class DeactiveClientForm(forms.ModelForm):
     class Meta:

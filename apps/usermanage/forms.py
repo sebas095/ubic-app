@@ -17,6 +17,17 @@ class RegForm(RegistrationForm):
     class Meta:
         model = User
         fields = ("username", "role", "first_name", "last_name", "document", "phone", "mobile", "address", "email")
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'document': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'mobile': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+        }
 
     def __init__(self, *args, **kwargs):
         role = kwargs.pop("role")
@@ -35,6 +46,17 @@ class RegForm(RegistrationForm):
 
         super(RegForm, self).__init__(*args, **kwargs)
         self.fields['role'].choices = roles
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['role'].widget.attrs.update({'class': 'form-control'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['document'].widget.attrs.update({'class': 'form-control'})
+        self.fields['phone'].widget.attrs.update({'class': 'form-control'})
+        self.fields['mobile'].widget.attrs.update({'class': 'form-control'})
+        self.fields['address'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
 
     def save(self, commit=True):
         user = super(RegForm, self).save(commit=False)
@@ -55,14 +77,35 @@ class RegForm(RegistrationForm):
         return user
 
 class EditForm(forms.ModelForm):
-    document = forms.CharField(label=_("Document"), max_length=20, required=False)
+    document = forms.CharField(max_length=20, required=False)
     phone = forms.CharField(max_length=20, required=False)
     mobile = forms.CharField(max_length=15, required=False)
     address = forms.CharField(max_length=50, required=False)
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "document", "phone", "mobile", "address", "email")
+        fields = ["first_name", "last_name", "document", "phone", "mobile", "address", "email"]
+        labels = {
+            'first_name': _('Nombre(s)'),
+            'last_name': _('Apellido(s'),
+            'document': _('Documento'),
+            'phone': _('Teléfono'),
+            'mobile': _('Celular'),
+            'address': _('Dirección'),
+            'email': _('Correo Electrónico'),
+        }
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(EditForm, self).__init__(*args, **kwargs)
+        self.fields['document'].widget.attrs.update({'class': 'form-control'})
+        self.fields['phone'].widget.attrs.update({'class': 'form-control'})
+        self.fields['mobile'].widget.attrs.update({'class': 'form-control'})
+        self.fields['address'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
 
     def save(self, commit=True):
         user = super(EditForm, self).save(commit=False)

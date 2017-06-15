@@ -24,11 +24,3 @@ class Loan(Document):
     event = ReferenceField(Event, null=True)
 
     meta = {"db_alias": "secondary"}
-
-# TODO
-# Un modelo que se llame prestamo
-# Monto total
-# Cuotas
-# Tasa
-# Recaudado
-# Incluya una relacion hacia el evento Que puede ser null

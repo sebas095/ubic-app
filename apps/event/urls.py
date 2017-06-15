@@ -1,5 +1,4 @@
 """MapsProject URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
 Examples:
@@ -16,9 +15,12 @@ Including another URLconf
 from django.conf.urls import url
 
 from .views import EventCreateView, EventUpdateView, EventListView, EventDeleteView, \
-                LoanCreateView, LoanUpdateView, LoanListView, LoanDeleteView
+                LoanCreateView, LoanUpdateView, LoanListView, LoanDeleteView, \
+                EventAPIView, EventCreateAPIView
 
 urlpatterns = [
+    url(r'api/new/$', EventCreateAPIView.as_view(), name='event_create_new_api'),
+    url(r'api/create/$', EventAPIView.as_view(), name='event_create_api'),
     url(r'loan/create/$', LoanCreateView.as_view(), name='loan_create'),
     url(r'loan/edit/(?P<id>\w+)/$', LoanUpdateView.as_view(), name='loan_edit'),
     url(r'loan/list/$', LoanListView.as_view(), name='loan_list'),
@@ -28,4 +30,3 @@ urlpatterns = [
     url(r'list/$', EventListView.as_view(), name='event_list'),
     url(r'delete/(?P<id>\w+)/$', EventDeleteView.as_view(), name='event_delete'),
 ]
-

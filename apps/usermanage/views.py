@@ -35,13 +35,13 @@ class HomePageView(View):
                             "msg": "Su servicio esta próximo a vencerse"
                         })
                     else:
-                        return render(request, 'index.html')
+                        return HttpResponseRedirect(reverse_lazy('auth_login'))
                 else:
-                    return render(request, 'index.html')
+                    return HttpResponseRedirect(reverse_lazy('auth_login'))
             else:
-                return render(request, 'index.html')
+                return HttpResponseRedirect(reverse_lazy('auth_login'))
         else:
-            return render(request, 'index.html')
+            return HttpResponseRedirect(reverse_lazy('auth_login'))
 
 @require_login
 @require_service

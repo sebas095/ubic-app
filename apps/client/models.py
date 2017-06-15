@@ -13,14 +13,3 @@ class Client(models.Model):
     lat = models.FloatField(default=0)
     lon = models.FloatField(default=0)
     observations = models.TextField(null=True)
-#
-# ##############################################################
-# ## Non relational info
-# #############################################################
-# from mongoengine import *
-#
-# class Norel_client(Document):
-#     id = StringField()
-#     tipo = StringField()
-#     data = StringField()
-#     tags = StringField()

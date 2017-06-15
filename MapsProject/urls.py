@@ -1,5 +1,4 @@
 """MapsProject URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
 Examples:
@@ -33,7 +32,6 @@ urlpatterns += i18n_patterns(
     url('^route/', include('apps.route.urls'), name='route'),
     url('^help/', include('apps.help.urls'), name='help'),
     url('^event/', include('apps.event.urls'), name='event'),
+    url('^notification/', include('apps.notification.urls'), name='notification'),
     url(r'^$', HomePageView.as_view(), name="index"),
 )
-
-
