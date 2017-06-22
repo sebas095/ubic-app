@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     # MongoDB Support
     'mongoengine',
     'mongodbforms',
-    'mongogeneric',
 
     # Crispy App
     # 'crispy_forms',
