@@ -12,7 +12,9 @@ django-registration-redux==1.4
 django-rest-framework-mongoengine==3.3.1
 djangorestframework==3.6.2
 djangorestframework-jwt==1.10.0
+gunicorn==19.7.1
 incremental==17.5.0
+mongodbforms==0.3.1
 mongoengine==0.10.1
 msgpack-python==0.4.8
 packaging==16.8
@@ -22,4 +24,3 @@ pyparsing==2.1.10
 pytz==2016.10
 six==1.10.0
 sphinx-me==0.3
-./dependencies
