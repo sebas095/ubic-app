@@ -136,7 +136,7 @@ DATABASES = {
     }
 }
 
-mongoengine.connect(db="ubicapp", alias="secondary", host="mongodb://sebas.duque:enero23@ds127892.mlab.com:27892/ubicapp")
+mongoengine.connect(db="ubicapp", alias="secondary", host="mongodb://sebas095:enero23@ds127892.mlab.com:27892/ubicapp")
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
