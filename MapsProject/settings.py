@@ -25,7 +25,14 @@ SECRET_KEY = 'l!^h-@d-!c@3_olr$-k^fsp3&47bhd-1ny1xm6j%=02-h@*$&-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '192.168.43.105',
+    'localhost',
+    '127.0.0.1',
+    '10.253.58.167',
+    '192.168.0.36',
+    'ubic-app.herokuapp.com'
+]
 
 # Application definition
 
