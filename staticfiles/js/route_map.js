@@ -1,7 +1,7 @@
 /**
  * Created by sebastian on 10/03/17.
  */
-let map, ROUTE;
+let map, ROUTE, myPosition;
 const COLORS_ARRAY = [
     "#0000FF", "#8A2BE2", "#A52A2A", "#000000", "#DEB887",
     "#5F9EA0", "#7FFF00", "#D2691E", "#FF7F50", "#6495ED",
@@ -15,6 +15,8 @@ let DIRECTIONS_DISPLAY = null;
 let GEOCODER = null;
 let count = 1;
 
+window.addEventListener('load', initMap, false);
+
 function initMap() {
     GEOCODER = new google.maps.Geocoder;
     DIRECTIONS_SERVICE = new google.maps.DirectionsService;
@@ -25,31 +27,32 @@ function initMap() {
         }
     });
 
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition((position) => {
         const {latitude, longitude} = position.coords;
+        const center = {
+            lat: latitude,
+            lng: longitude
+        };
+
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: latitude,
-                lng: longitude
-            },
+            center: center,
             zoom: 19
         });
 
-        // google.maps.event.addListener(map, 'click', (ev) => {
-        //    console.log(ev.latLng);
-        //   placeMarker(ev.latLng);
-        //    WAYPOINTS.push([
-        //       ev.latLng.lat(),
-        //        ev.latLng.lng()
-         //   ]);
-        //});
+        myPosition = placeMarker({lat: latitude, lng: longitude}, 'Aquí estoy :D!!', false);
+        navigator.geolocation.watchPosition(showMap);
     });
 }
 
+function showMap(position) {
+	const {latitude, longitude} = position.coords;
+	myPosition.setPosition({lat: latitude, lng: longitude});
+}
 
-function placeMarker(location) {
-    const marker = new google.maps.Marker({
+function placeMarker(location, label = '') {
+    return new google.maps.Marker({
         position: location,
+        label: label,
         map: map
     });
 }
@@ -124,7 +127,7 @@ function calcAndDisplayRoute(display) {
             for (let cl = 0; cl < clients.length; cl++) {
                 const client = clients[cl];
                 if (client.getAttribute('data-client')) {
-                    const index = Number(client.getAttribute('data-client')) - 2;
+                    const index = Number(client.getAttribute('data-client')) - 1;
                     id_clients[index] = Number(client.id);
                 }
             }
@@ -143,18 +146,17 @@ function displayClientRoute() {
     const lat = parseFloat($($id).children('input')[0].value.replace(',', '.'));
     const lng = parseFloat($($id).children('input')[1].value.replace(',', '.'));
     const location = new google.maps.LatLng(lat, lng);
-
-    placeMarker(location);
-    WAYPOINTS.push([
-        lat,
-        lng
-    ]);
-
     const div = $($id).children('div')[1];
 
     if (!$(div).children().text()) {
+        WAYPOINTS.push([
+            lat,
+            lng
+        ]);
+
         $(div).children().text(`${count++}`);
-        $($id).attr('data-client', count);
+        placeMarker(location, (count - 1).toString());
+        $($id).attr('data-client', count - 1);
         $(div).css('background-color', '#66BAB8');
     }
 }
